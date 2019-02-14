@@ -1,8 +1,4 @@
 linters:
-  checkstyle:
-    config: ./checkstyle.xml
-  eslint:
-      config: './.eslintrc'
   csslint: {  }
 files:
   ignore:
