@@ -1,6 +1,0 @@
-com\google\codeu\data\Message.class
-com\google\codeu\servlets\LogoutServlet.class
-com\google\codeu\data\Datastore.class
-com\google\codeu\servlets\LoginServlet.class
-com\google\codeu\servlets\LoginStatusServlet.class
-com\google\codeu\servlets\MessageServlet.class
