@@ -19,48 +19,56 @@ package com.google.codeu.data;
 import java.util.UUID;
 
 /** A single message posted by a user. */
-public class Message {
+public class Message
+{
 
   private UUID id;
   private String user;
   private String text;
   private long timestamp;
-  private String recipient;
+  private String recipient; //added recipient for messages
 
   /**
    * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
    * random ID and uses the current system time for the creation time.
    */
-  public Message(String user, String text, String recipient) {
+  public Message(String user, String text, String recipient)/*Added recipient to list of constructors*/
+  {
     this(UUID.randomUUID(), user, text, System.currentTimeMillis(), recipient);
   }
 
-  public Message(UUID id, String user, String text, long timestamp) {
+  public Message(UUID id, String user, String text, long timestamp)
+  {
     this.id = id;
     this.user = user;
     this.text = text;
     this.timestamp = timestamp;
-    this.recipient = recipient;
+    this.recipient = recipient; //set recipient in default constructor
   }
 
-  public UUID getId() {
+  public UUID getId()
+  {
     return id;
   }
 
-  public String getUser() {
+  public String getUser()
+  {
     return user;
   }
 
-  public String getText() {
+  public String getText()
+  {
     return text;
   }
 
-  public long getTimestamp() {
+  public long getTimestamp()
+  {
     return timestamp;
   }
 
-  public String getRecipient() {
-    return recipient;
+  public String getRecipient()
+  {
+    return recipient; //added accessor to recipient
   }
 
 }
