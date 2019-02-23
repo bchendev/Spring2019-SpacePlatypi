@@ -43,23 +43,19 @@ public class Message {
     this.recipient = recipient;
   }
 
-  public UUID getId()
-  {
+  public UUID getId() {
     return id;
   }
 
-  public String getUser()
-  {
+  public String getUser() {
     return user;
   }
 
-  public String getText()
-  {
+  public String getText() {
     return text;
   }
 
-  public long getTimestamp()
-  {
+  public long getTimestamp() {
     return timestamp;
   }
 
