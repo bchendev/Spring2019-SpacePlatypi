@@ -62,5 +62,4 @@ public class Message {
   public String getRecipient() {
     return recipient;
   }
-
 }
