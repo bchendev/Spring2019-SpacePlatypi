@@ -6,12 +6,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @WebServlet("/about")
 public class AboutMeServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-  //Responds with a hard-coded message for testing purposes.
+    // Responds with a hard-coded message for testing purposes.
     response.getOutputStream().println("hello world");
   }
 }
