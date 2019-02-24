@@ -6,9 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Responds with a hard-coded message for testing purposes.
- */
+/** Responds with a hard-coded message for testing purposes. */
 @WebServlet("/about")
 public class AboutMeServlet extends HttpServlet {
 
