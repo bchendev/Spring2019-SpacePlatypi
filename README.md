@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-Somebody please make this readme beautiful
-
-true
-=======
 #Team Space Platypi
 
 All instructions for contributing to this repo can be found here:
