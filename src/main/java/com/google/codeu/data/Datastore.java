@@ -82,7 +82,7 @@ public class Datastore {
     return messages;
   }
 
-  public List<Message> getAllMessages(){
+  public List<Message> getAllMessages() {
     List<Message> messages = new ArrayList<>();
 
     Query query = 
