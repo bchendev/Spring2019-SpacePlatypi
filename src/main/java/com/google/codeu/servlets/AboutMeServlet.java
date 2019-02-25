@@ -30,8 +30,7 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
-    String aboutMe = "This is " + user + "'s about me.";
-
+    String aboutMe = String.format("This is %s's about me.", user);
     response.getOutputStream().println(aboutMe);
   }
 
