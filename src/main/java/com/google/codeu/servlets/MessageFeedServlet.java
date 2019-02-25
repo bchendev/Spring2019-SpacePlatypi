@@ -19,6 +19,7 @@ public class MessageFeedServlet extends HttpServlet {
   public void init() {
     datastore = new Datastore();
   }
+  
   /** Responds with a JSON representation of Message data for all users. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
