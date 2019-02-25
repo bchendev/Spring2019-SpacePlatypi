@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// Handles fetching and saving user data.
+/** A servlet that handles fetching and saving user data to display the About Me page. */
 @WebServlet("/about")
 public class AboutMeServlet extends HttpServlet {
 
@@ -20,16 +20,13 @@ public class AboutMeServlet extends HttpServlet {
     datastore = new Datastore();
   }
 
-  // Responds with the "about me" section for a particular user.
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
     response.setContentType("text/html");
-
     String user = request.getParameter("user");
 
-    if (user == null || user.equals("")) {
-      // Request is invalid, return empty response
+    if (user == null || user.isEmpty()) {
+      // No-op if the request is invalid.
       return;
     }
 
@@ -40,7 +37,6 @@ public class AboutMeServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
     UserService userService = UserServiceFactory.getUserService();
     if (!userService.isUserLoggedIn()) {
       response.sendRedirect("/index.html");
@@ -48,9 +44,8 @@ public class AboutMeServlet extends HttpServlet {
     }
 
     String userEmail = userService.getCurrentUser().getEmail();
-
     System.out.println("Saving about me for " + userEmail);
-    // TODO: save the data
+    // TODO(kcastaneda): Save the data
 
     response.sendRedirect("/user-page.html?user=" + userEmail);
   }
