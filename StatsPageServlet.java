@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Responds with a hard-coded message for testing purposes.
  */
-@WebServlet("/stats")
+@WebServlet(name = "StatsPageServlet", value = "/stats")
 public class StatsPageServlet extends HttpServlet{
   
  @Override
  public void doGet(HttpServletRequest request, HttpServletResponse response)
    throws IOException {
   
-  response.getOutputStream().println("hello world");
+   response.getOutputStream().println("hello world");
  }
 }
