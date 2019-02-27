@@ -19,6 +19,7 @@ package com.google.codeu.data;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
@@ -29,6 +30,9 @@ import java.util.UUID;
 
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
+
+  /** The maximum number of message entries to fetch from Datastore. */
+  static final int MESSAGE_LIMIT = 1000;
 
   private DatastoreService datastore;
 
@@ -113,5 +117,12 @@ public class Datastore {
     }
 
     return messages;
+  }
+
+  /** Returns the total number of messages for all users. */
+  public int getTotalMessageCount() {
+    Query query = new Query("Message");
+    PreparedQuery results = datastore.prepare(query);
+    return results.countEntities(FetchOptions.Builder.withLimit(MESSAGE_LIMIT));
   }
 }
