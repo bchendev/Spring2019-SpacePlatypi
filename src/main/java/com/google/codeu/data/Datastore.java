@@ -31,6 +31,8 @@ import java.util.UUID;
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
 
+  static final int NUMBER = 1000;
+
   private DatastoreService datastore;
 
   public Datastore() {
@@ -120,6 +122,6 @@ public class Datastore {
   public int getTotalMessageCount() {
     Query query = new Query("Message");
     PreparedQuery results = datastore.prepare(query);
-    return results.countEntities(FetchOptions.Builder.withLimit(1000));
+    return results.countEntities(FetchOptions.Builder.withLimit(NUMBER));
   }
 }

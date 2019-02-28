@@ -22,7 +22,6 @@ public class StatsPageServlet extends HttpServlet {
   /** Responds with site statistics in JSON. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
     response.setContentType("application/json");
 
     int messageCount = datastore.getTotalMessageCount();
