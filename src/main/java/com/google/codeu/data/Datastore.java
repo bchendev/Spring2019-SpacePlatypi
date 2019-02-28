@@ -31,7 +31,8 @@ import java.util.UUID;
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
 
-  static final int NUMBER = 1000;
+  /** The maximum number of message entries to fetch from Datastore. */
+  static final int MESSAGE_LIMIT = 1000;
 
   private DatastoreService datastore;
 
@@ -122,6 +123,6 @@ public class Datastore {
   public int getTotalMessageCount() {
     Query query = new Query("Message");
     PreparedQuery results = datastore.prepare(query);
-    return results.countEntities(FetchOptions.Builder.withLimit(NUMBER));
+    return results.countEntities(FetchOptions.Builder.withLimit(MESSAGE_LIMIT));
   }
 }
