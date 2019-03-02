@@ -3,11 +3,14 @@ package com.google.codeu.servlets;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
+import com.google.codeu.data.User;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 
 /** A servlet that handles fetching and saving user data to display the About Me page. */
 @WebServlet("/about")
@@ -30,8 +33,13 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
-    String aboutMe = String.format("This is %s's about me.", user);
-    response.getOutputStream().println(aboutMe);
+    User userData = datastore.getUser(user);
+
+    if (userData == null || userData.getAboutMe() == null) {
+      return;
+    }
+
+    response.getOutputStream().println(userData.getAboutMe());
   }
 
   @Override
@@ -42,9 +50,10 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
+    String aboutMe = Jsoup.clean(request.getParameter("about-me"), Whitelist.none());
     String userEmail = userService.getCurrentUser().getEmail();
-    System.out.println("Saving about me for " + userEmail);
-    // TODO(kcastaneda): Save the data
+    User user = new User(userEmail, aboutMe);
+    datastore.storeUser(user);
 
     response.sendRedirect("/user-page.html?user=" + userEmail);
   }
