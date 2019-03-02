@@ -62,7 +62,8 @@ public class Datastore {
 
     Query query =
             new Query("Message")
-                    .setFilter(new Query.FilterPredicate("recipient", FilterOperator.EQUAL, recipient))
+                    .setFilter(new Query.FilterPredicate("recipient", FilterOperator.EQUAL,
+                            recipient))
                     .addSort("timestamp", SortDirection.DESCENDING);
     PreparedQuery results = datastore.prepare(query);
 
@@ -127,5 +128,3 @@ public class Datastore {
     return results.countEntities(FetchOptions.Builder.withLimit(MESSAGE_LIMIT));
   }
 }
-
-//
