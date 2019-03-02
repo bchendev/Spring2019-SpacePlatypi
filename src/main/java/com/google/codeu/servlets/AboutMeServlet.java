@@ -3,6 +3,7 @@ package com.google.codeu.servlets;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
+import com.google.codeu.data.User;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,8 +31,11 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
-    String aboutMe = String.format("This is %s's about me.", user);
-    response.getOutputStream().println(aboutMe);
+    User userData = datastore.getUser(user);
+
+    if (userData == null || userData.getAboutMe() == null) {
+      return;
+    }
   }
 
   @Override
@@ -43,8 +47,9 @@ public class AboutMeServlet extends HttpServlet {
     }
 
     String userEmail = userService.getCurrentUser().getEmail();
-    System.out.println("Saving about me for " + userEmail);
-    // TODO(kcastaneda): Save the data
+    String aboutMe = request.getParameter("about-me");
+    User user = new User(userEmail, aboutMe);
+    datastore.storeUser(user);
 
     response.sendRedirect("/user-page.html?user=" + userEmail);
   }
