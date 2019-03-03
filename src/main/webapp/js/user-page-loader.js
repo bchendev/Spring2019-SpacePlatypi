@@ -29,9 +29,6 @@ function setPageTitle() {
   document.title = parameterUsername + ' - User Page';
 }
 
-/**
- * Shows the message form if the user is logged in and viewing their own page.
- */
 function showMessageFormIfLoggedIn() {
   fetch('/login-status')
       .then((response) => {
