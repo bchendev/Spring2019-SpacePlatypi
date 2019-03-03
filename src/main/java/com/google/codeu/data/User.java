@@ -1,5 +1,5 @@
 package com.google.codeu.data;
-
+/** Keeps track of user information. */
 public class User {
 
   private String email;

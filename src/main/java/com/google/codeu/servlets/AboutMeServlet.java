@@ -38,6 +38,8 @@ public class AboutMeServlet extends HttpServlet {
     if (userData == null || userData.getAboutMe() == null) {
       return;
     }
+
+    response.getOutputStream().println(userData.getAboutMe());
   }
 
   @Override
@@ -48,8 +50,8 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
-    String userEmail = userService.getCurrentUser().getEmail();
     String aboutMe = Jsoup.clean(request.getParameter("about-me"), Whitelist.none());
+    String userEmail = userService.getCurrentUser().getEmail();
     User user = new User(userEmail, aboutMe);
     datastore.storeUser(user);
 

@@ -136,7 +136,6 @@ public class Datastore {
 
   /** Returns the User owned by the email address, or null if no matching User was found. */
   public User getUser(String email) {
-
     Query query =
         new Query("User")
             .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, email));
