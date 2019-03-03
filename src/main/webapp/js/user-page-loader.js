@@ -29,6 +29,9 @@ function setPageTitle() {
   document.title = parameterUsername + ' - User Page';
 }
 
+/**
+* Shows the message form if the user is logged in
+*/
 function showMessageFormIfLoggedIn() {
   fetch('/login-status')
       .then((response) => {
