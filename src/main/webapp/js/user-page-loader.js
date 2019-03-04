@@ -30,7 +30,7 @@ function setPageTitle() {
 }
 
 /**
-* Shows the message form if the user is logged in
+* Shows the message form if the user is logged in.
 */
 function showMessageFormIfLoggedIn() {
   fetch('/login-status')
