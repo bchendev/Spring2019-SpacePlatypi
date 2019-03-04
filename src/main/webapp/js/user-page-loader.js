@@ -30,17 +30,17 @@ function setPageTitle() {
 }
 
 /**
- * Shows the message form if the user is logged in and viewing their own page.
- */
-function showMessageFormIfViewingSelf() {
+* Shows the message form if the user is logged in.
+*/
+function showMessageFormIfLoggedIn() {
   fetch('/login-status')
       .then((response) => {
         return response.json();
       })
       .then((loginStatus) => {
-        if (loginStatus.isLoggedIn &&
-            loginStatus.username == parameterUsername) {
+        if (loginStatus.isLoggedIn) {
           const messageForm = document.getElementById('message-form');
+          messageForm.action = '/messages?recipient=' + parameterUsername;
           messageForm.classList.remove('hidden');
         }
       });
@@ -111,7 +111,7 @@ function fetchAboutMe(){
 function buildUI() {
   setPageTitle();
   fetchAboutMe();
-  showMessageFormIfViewingSelf();
+  showMessageFormIfLoggedIn();
   fetchMessages();
 }
 
