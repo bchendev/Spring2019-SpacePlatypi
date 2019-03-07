@@ -35,7 +35,11 @@ public class Message {
     this(UUID.randomUUID(), user, text, System.currentTimeMillis(), recipient);
   }
 
-  public Message(UUID id, String user, String text, long timestamp) {
+  /**
+   * Constructs a new {@link Message} posted by a {@code user} with {@code text} content sent to a
+   * {@code recipient} at {@code timestamp}.
+   */
+  public Message(UUID id, String user, String text, long timestamp, String recipient) {
     this.id = id;
     this.user = user;
     this.text = text;
@@ -62,5 +66,4 @@ public class Message {
   public String getRecipient() {
     return recipient;
   }
-
 }
