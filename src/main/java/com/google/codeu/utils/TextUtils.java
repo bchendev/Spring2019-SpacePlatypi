@@ -24,7 +24,7 @@ public class TextUtils extends HttpServlet {
   }
   /*
     /**
-     * Responds with a JSON representation of {@link Message} data 
+     * Responds with a JSON representation of {@link Message} data
      * for a specific user. Responds with
      * an empty array if the user is not provided.
 
