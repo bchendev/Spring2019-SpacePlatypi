@@ -24,7 +24,8 @@ public class TextUtils extends HttpServlet {
   }
   /*
     /**
-     * Responds with a JSON representation of {@link Message} data for a specific user. Responds with
+     * Responds with a JSON representation of {@link Message} data 
+     * for a specific user. Responds with
      * an empty array if the user is not provided.
 
     @Override
@@ -49,7 +50,8 @@ public class TextUtils extends HttpServlet {
 
     /** Stores a new {@link Message}.
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request,
+    HttpServletResponse response) throws IOException {
 
       UserService userService = UserServiceFactory.getUserService();
       if (!userService.isUserLoggedIn()) {
