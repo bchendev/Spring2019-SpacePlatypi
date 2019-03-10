@@ -49,8 +49,8 @@ public class AboutMeServlet extends HttpServlet {
       response.sendRedirect("/index.html");
       return;
     }
-    
-    //filters user inputted about me for safe html
+
+    // filters user inputted about me for safe html
     String aboutMe = Jsoup.clean(request.getParameter("about-me"), Whitelist.basic());
     String userEmail = userService.getCurrentUser().getEmail();
     User user = new User(userEmail, aboutMe);

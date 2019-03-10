@@ -76,8 +76,8 @@ public class MessageServlet extends HttpServlet {
     }
 
     String user = userService.getCurrentUser().getEmail();
-    
-    //filters user inputted text for safe formatting
+
+    // filters user inputted text for safe formatting
     String text = Jsoup.clean(request.getParameter("text"), Whitelist.basic());
     String recipient = request.getParameter("recipient");
 
