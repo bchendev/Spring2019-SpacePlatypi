@@ -37,7 +37,7 @@ limitations under the License.
         <input type="submit" value="Submit">
         <script>
           ClassicEditor
-            .create( document.getElementById('about-me-box'), {
+            .create( document.querySelector('#about-me-box'), {
               removePlugins: 'blockQuote',
               toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
               heading: {
@@ -66,7 +66,7 @@ limitations under the License.
       <input type="submit" value="Submit"> 
       <script>
   	ClassicEditor
-          .create( document.getElementById('message-input'), {
+          .create( document.querySelector('#message-input'), {
             removePlugins: 'blockQuote',
             toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
             heading: {
