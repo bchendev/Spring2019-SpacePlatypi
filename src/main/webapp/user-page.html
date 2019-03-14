@@ -36,25 +36,25 @@ limitations under the License.
         <br/>
         <input type="submit" value="Submit">
         <script>
-          ClassicEditor.create( document.querySelector("#about-me-box") {
+          ClassicEditor.create( document.getElementById('about-me-box'), {
             removePlugins: [ 'blockQuote' ],
             toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
             heading: {
               options: [
-                { model: 'paragraph', title: 'Small', class: 'ck-heading_paragraph' },
-                { model: 'heading1', view: 'h1', title: 'Large', class: 'ck-heading_heading1' },
-                { model: 'heading2', view: 'h2', title: 'Medium', class: 'ck-heading_heading2' }
+                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                { model: 'heading1', view: 'h1', title: 'Title', class: 'ck-heading_heading1' },
+                { model: 'heading2', view: 'h2', title: 'Heading', class: 'ck-heading_heading2' }
               ]
             }
           } )
-	  .then( editor => {
+          .then( editor => {
             console.log( editor );
           } )
           .catch( error => {
             console.log( error );
           } );
-        </script>
-      </form> 
+        </script> 
+      </form>
     </div>
     
     <form id="message-form" action="/messages" method="POST" class="hidden">
@@ -65,14 +65,14 @@ limitations under the License.
       <input type="submit" value="Submit"> 
       <script>
         ClassicEditor
-          .create( document.querySelector('#message-input'), {
+          .create( document.getElementById('message-input'), {
             removePlugins: [ 'blockQuote' ],
             toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
             heading: {
               options: [
-                { model: 'paragraph', title: 'Small', class: 'ck-heading_paragraph' },
-                { model: 'heading1', view: 'h1', title: 'Large', class: 'ck-heading_heading1' },
-                { model: 'heading2', view: 'h2', title: 'Medium', class: 'ck-heading_heading2' }
+                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                { model: 'heading1', view: 'h1', title: 'Title', class: 'ck-heading_heading1' },
+                { model: 'heading2', view: 'h2', title: 'Heading', class: 'ck-heading_heading2' }
               ]
             }
           } )
