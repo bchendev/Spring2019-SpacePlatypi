@@ -18,7 +18,7 @@ limitations under the License.
 <html>
   <head>
     <title>User Page</title>
-    <script src="http://cdn.ckeditor.com/4.7.2/basic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
@@ -39,13 +39,13 @@ limitations under the License.
         <br/>
         <input type="submit" value="Submit">
       </form>
-
+    <!--
     <script>
       CKEDITOR.replace('about-me');
     </script>
-
+    -->
     </div>
-
+    
     <form id="message-form" action="/messages" method="POST" class="hidden">
       Enter a new message:
       <br/>
@@ -53,14 +53,37 @@ limitations under the License.
       <br/>
       <input type="submit" value="Submit">
     </form>
-    
+    <!--
     <script>
       CKEDITOR.replace('text');
     </script>
-    
+    -->
     <hr/>
 
     <div id="message-container">Loading...</div>
 
-  </body>
+  </body>  
+  <script>
+    ClassicEditor.create( document.getElementById('message-input') );
+    /*
+    ClassicEditor
+      .create( document.getElementById('message-input'), {
+        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+        heading: {
+          options: [
+            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+            { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+            { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+          ]
+        }
+      } )
+      .then( editor => {
+        console.log( editor );
+      } )
+      .catch( error => {
+        console.log( error );
+      } );
+    */
+  </script>
+
 </html>
