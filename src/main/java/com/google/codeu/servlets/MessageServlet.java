@@ -76,7 +76,9 @@ public class MessageServlet extends HttpServlet {
     }
 
     String user = userService.getCurrentUser().getEmail();
-    String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+
+    //Whitelists safe html user input in the message text box
+    String text = Jsoup.clean(request.getParameter("text"), Whitelist.basic());
     String recipient = request.getParameter("recipient");
 
     Message message = new Message(user, text, recipient);
