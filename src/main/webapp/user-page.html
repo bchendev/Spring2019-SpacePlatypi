@@ -15,7 +15,10 @@ limitations under the License.
 <html>
   <head>
     <title>User Page</title>
-    <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>  
+    <script>
+      CKEDITOR.plugins.addExternal( 'emoji', '/js/emoji/', 'plugin.js' );
+    </script>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
@@ -36,23 +39,25 @@ limitations under the License.
         <br/>
         <input type="submit" value="Submit">
         <script>
-          ClassicEditor.create( document.getElementById('about-me-box'), {
-            removePlugins: [ 'blockQuote' ],
-            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
-            heading: {
-              options: [
-                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                { model: 'heading1', view: 'h1', title: 'Title', class: 'ck-heading_heading1' },
-                { model: 'heading2', view: 'h2', title: 'Heading', class: 'ck-heading_heading2' }
-              ]
-            }
-          } )
-          .then( editor => {
-            console.log( editor );
-          } )
-          .catch( error => {
-            console.log( error );
-          } );
+          ClassicEditor
+            .create( document.getElementById('about-me-box'), {
+              removePlugins: 'blockQuote',
+              extraPlugins: 'emoji',
+              toolbar: [ 'heading', '|', 'emoji', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
+              heading: {
+                options: [
+                  { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                  { model: 'heading1', view: 'h1', title: 'Title', class: 'ck-heading_heading1' },
+                  { model: 'heading2', view: 'h2', title: 'Heading', class: 'ck-heading_heading2' }
+                ]
+              }
+            } )
+            .then( editor => {
+              console.log( editor );
+            } )
+            .catch( error => {
+              console.log( error );
+            } );
         </script> 
       </form>
     </div>
@@ -67,7 +72,8 @@ limitations under the License.
         ClassicEditor
           .create( document.getElementById('message-input'), {
             removePlugins: [ 'blockQuote' ],
-            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
+            extraPlugins: 'emoji',
+            toolbar: [ 'heading', '|', 'emoji', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
             heading: {
               options: [
                 { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
@@ -87,5 +93,6 @@ limitations under the License.
     <hr/>
 
     <div id="message-container">Loading...</div>
+
   </body>  
 </html>
