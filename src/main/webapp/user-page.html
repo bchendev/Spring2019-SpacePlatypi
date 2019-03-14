@@ -16,9 +16,6 @@ limitations under the License.
   <head>
     <title>User Page</title>
     <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>  
-    <script>
-      CKEDITOR.plugins.addExternal( 'emoji', '/js/emoji/', 'plugin.js' );
-    </script>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
@@ -42,8 +39,7 @@ limitations under the License.
           ClassicEditor
             .create( document.getElementById('about-me-box'), {
               removePlugins: 'blockQuote',
-              extraPlugins: 'emoji',
-              toolbar: [ 'heading', '|', 'emoji', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
+              toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
               heading: {
                 options: [
                   { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
@@ -52,7 +48,7 @@ limitations under the License.
                 ]
               }
             } )
-            .then( editor => {
+            .then( editor => { 
               console.log( editor );
             } )
             .catch( error => {
@@ -69,11 +65,11 @@ limitations under the License.
       <br/>
       <input type="submit" value="Submit"> 
       <script>
-        ClassicEditor
+  	ClassicEditor
           .create( document.getElementById('message-input'), {
-            removePlugins: [ 'blockQuote' ],
+            removePlugins: 'blockQuote',
             extraPlugins: 'emoji',
-            toolbar: [ 'heading', '|', 'emoji', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
+            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
             heading: {
               options: [
                 { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
@@ -83,8 +79,8 @@ limitations under the License.
             }
           } )
 	  .then( editor => {
-            console.log( editor );
-          } )
+	    console.log( editor );
+	  } )
           .catch( error => {
             console.log( error );
           } );
