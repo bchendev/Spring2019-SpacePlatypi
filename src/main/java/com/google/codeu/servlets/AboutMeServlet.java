@@ -50,7 +50,8 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
-    String aboutMe = Jsoup.clean(request.getParameter("about-me"), Whitelist.none());
+    //Whitelists safe html user input in the about me text box.
+    String aboutMe = Jsoup.clean(request.getParameter("about-me"), Whitelist.basic());
     String userEmail = userService.getCurrentUser().getEmail();
     User user = new User(userEmail, aboutMe);
     datastore.storeUser(user);

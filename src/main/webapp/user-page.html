@@ -18,6 +18,7 @@ limitations under the License.
 <html>
   <head>
     <title>User Page</title>
+    <script src="https://cdn.ckeditor.com/4.11.3/basic/ckeditor.js"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
@@ -38,8 +39,11 @@ limitations under the License.
         <br/>
         <input type="submit" value="Submit">
       </form>
+    <script>
+      CKEDITOR.replace('about-me');
+    </script>
     </div>
-
+    
     <form id="message-form" action="/messages" method="POST" class="hidden">
       Enter a new message:
       <br/>
@@ -47,9 +51,11 @@ limitations under the License.
       <br/>
       <input type="submit" value="Submit">
     </form>
+    <script>
+      CKEDITOR.replace('text');
+    </script>
     <hr/>
 
     <div id="message-container">Loading...</div>
-
-  </body>
+  </body>  
 </html>
