@@ -21,7 +21,8 @@ public class MapsServlet extends HttpServlet {
   public void init() {
     starbucksLocationsArray = new JsonArray();
     Gson gson = new Gson();
-    Scanner scanner = new Scanner(getServletContext().getResourceAsStream("/WEB-INF/starbucks-data.csv"));
+    Scanner scanner =
+            new Scanner(getServletContext().getResourceAsStream("/WEB-INF/starbucks-data.csv"));
     while(scanner.hasNextLine()) {
       String line = scanner.nextLine();
       String[] cells = line.split(",");
@@ -41,15 +42,15 @@ public class MapsServlet extends HttpServlet {
     response.getOutputStream().println(starbucksLocationsArray.toString());
   }
 
-  private static class UfoSighting{
+  private static class UfoSighting {
     String state;
     double lat;
     double lng;
 
-   private UfoSighting(String state, double lat, double lng) {
-     this.state = state;
-     this.lat = lat;
-     this.lng = lng;
-   }
+    private UfoSighting(String state, double lat, double lng) {
+      this.state = state;
+      this.lat = lat;
+      this.lng = lng;
+    }
   }
 }
