@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.Scanner;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -40,7 +40,7 @@ public class MapsServlet extends HttpServlet {
     response.setContentType("application/json");
     response.getOutputStream().println(starbucksLocationsArray.toString());
   }
- 
+
   private static class UfoSighting{
     String state;
     double lat;
