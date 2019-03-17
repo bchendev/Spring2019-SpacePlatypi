@@ -23,7 +23,7 @@ public class MapsServlet extends HttpServlet {
     Gson gson = new Gson();
     Scanner scanner =
             new Scanner(getServletContext().getResourceAsStream("/WEB-INF/starbucks-data.csv"));
-    while(scanner.hasNextLine()) {
+    while(scanner.hasNextLine()){
       String line = scanner.nextLine();
       String[] cells = line.split(",");
 
