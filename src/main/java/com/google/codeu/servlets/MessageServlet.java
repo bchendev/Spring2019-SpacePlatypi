@@ -64,21 +64,16 @@ public class MessageServlet extends HttpServlet {
 
     List<Message> messages = datastore.getMessages(user);
 
-    String targetLanguageCode = request.getParameter("language");
-    if (targetLanguageCode != null) {
-      translateMessages(messages, targetLanguageCode);
-    }
-
     Gson gson = new Gson();
     String json = gson.toJson(messages);
-
-    response.getWriter().println(json);
 
     // Gets target language & calls helper function to translate
     String targetLanguageCode = request.getParameter("language");
     if (targetLanguageCode != null) {
       translateMessages(messages, targetLanguageCode);
     }
+
+    response.getWriter().println(json);
   }
 
   /** Stores a new {@link Message}. */
@@ -116,7 +111,5 @@ public class MessageServlet extends HttpServlet {
     }
   }
 
-  private void setText(String translatedText) {
-    message = translatedText;
-  }
+  public void setText(String translatedText) {}
 }
