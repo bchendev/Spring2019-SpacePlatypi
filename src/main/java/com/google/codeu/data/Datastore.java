@@ -47,6 +47,8 @@ public class Datastore {
     messageEntity.setProperty("text", message.getText());
     messageEntity.setProperty("timestamp", message.getTimestamp());
     messageEntity.setProperty("recipient", message.getRecipient());
+    messageEntity.setProperty(
+        "sentimentScore", message.getSentimentScore()); // stores the sentimentScore
 
     datastore.put(messageEntity);
   }
@@ -73,8 +75,9 @@ public class Datastore {
         String user = (String) entity.getProperty("user");
         String text = (String) entity.getProperty("text");
         long timestamp = (long) entity.getProperty("timestamp");
+        float sentimentScore = (float) entity.getProperty("sentimentScore");
 
-        Message message = new Message(id, user, text, timestamp, recipient);
+        Message message = new Message(id, user, text, timestamp, recipient, sentimentScore);
         messages.add(message);
       } catch (Exception e) {
         System.err.println("Error reading message.");
@@ -106,8 +109,22 @@ public class Datastore {
         String recipient = (String) entity.getProperty("recipient");
         String text = (String) entity.getProperty("text");
         long timestamp = (long) entity.getProperty("timestamp");
+        float sentimentScore =
+            (float)
+                entity.getProperty(
+                    "sentimentScore"); // datastore doesnt stupport floats so change from double to
+        // float
+        // potential issue because sentimentScore starts as a float so does it have to be placed in
+        // DS as a double?
 
-        Message message = new Message(id, user, text, timestamp, recipient);
+        Message message =
+            new Message(
+                id,
+                user,
+                text,
+                timestamp,
+                recipient,
+                sentimentScore); // adds sentimentScore argument to the message to be returned
         messages.add(message);
       } catch (Exception e) {
         System.err.println("Error reading message.");

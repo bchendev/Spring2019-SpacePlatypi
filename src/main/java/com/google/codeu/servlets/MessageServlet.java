@@ -77,13 +77,25 @@ public class MessageServlet extends HttpServlet {
 
     String user = userService.getCurrentUser().getEmail();
 
-    //Whitelists safe html user input in the message text box
+    // Whitelists safe html user input in the message text box
     String text = Jsoup.clean(request.getParameter("text"), Whitelist.basic());
     String recipient = request.getParameter("recipient");
+    float sentimentScore = getSentimentScore(text);
 
-    Message message = new Message(user, text, recipient);
+    Message message = new Message(user, text, recipient, sentimentScore);
     datastore.storeMessage(message);
 
     response.sendRedirect("/user-page.html?user=" + recipient);
+  }
+
+  /** Analyzes a message and returns that message's sentiment score. */
+  private float getSentimentScore(String text) throws IOException {
+    Document doc = Document.newBuilder().setContent(text).setType(Type.PLAIN_TEXT).build();
+
+    LanguageServiceClient languageService = LanguageServiceClient.create();
+    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+    languageService.close();
+
+    return sentiment.getScore();
   }
 }
