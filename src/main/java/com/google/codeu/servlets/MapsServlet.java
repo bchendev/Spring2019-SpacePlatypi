@@ -9,14 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** A servlet that handles parsing JSON Starbucks data and serving in an HttpServlet Response.
- */
+/** A servlet that handles parsing JSON Starbucks data and serving in an HttpServlet Response.*/
 @WebServlet("/starbucks-data")
 public class MapsServlet extends HttpServlet {
   JsonArray starbucksLocationsArray;
   
-  /** Method to parse a comma separated string representing a Starbucks location.
-   */
+  /** Method to parse a comma separated string representing a Starbucks location.*/
   public SbLocation getStarbucksLocation(String line) {
     String[] cells = line.split(",");
     String country = cells[0];
@@ -26,8 +24,7 @@ public class MapsServlet extends HttpServlet {
     return new SbLocation(country, lat, lng);
   }
 
-  /** Method to parse a file and add it to the starbucksLocationArray.
-   */
+  /** Method to parse a file and add it to the starbucksLocationArray.*/
   private void parseFile(String fileName) {
     starbucksLocationsArray = new JsonArray();
     Gson gson = new Gson();
