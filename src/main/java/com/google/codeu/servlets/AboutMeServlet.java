@@ -50,8 +50,10 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
-    // Whitelists safe html user input in the about me text box.
-    String aboutMe = Jsoup.clean(request.getParameter("about-me"), Whitelist.basic());
+    // Allows only basic text editing, image uploading, and linking functions
+    Whitelist whitelist = Whitelist.basicWithImages().addTags("a").addAttributes("a", "href");
+    
+    String aboutMe = Jsoup.clean(request.getParameter("about-me"), whitelist);
     String userEmail = userService.getCurrentUser().getEmail();
     User user = new User(userEmail, aboutMe);
     datastore.storeUser(user);

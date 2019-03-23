@@ -1,12 +1,9 @@
 <!--
 Copyright 2019 Google Inc.
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
-
     http://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,7 +15,7 @@ limitations under the License.
 <html>
   <head>
     <title>User Page</title>
-    <script src="https://cdn.ckeditor.com/4.11.3/basic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>  
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
@@ -35,27 +32,60 @@ limitations under the License.
     <div id="about-me-container">Loading...</div>
       <div id="about-me-form" class="hidden">
       <form action="/about" method="POST">
-        <textarea name="about-me" placeholder="about me" rows=4 required></textarea>
+        <textarea name="about-me" id="about-me-input" placeholder="about me" rows=4 required></textarea>
         <br/>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit"> 
+        <script>
+          ClassicEditor
+            .create(document.querySelector( '#about-me-input' ), {
+	      removePlugins: [ 'BlockQuote'],
+
+	      //image upload feature to be incorporated with image project
+              toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'imageUpload', 'undo', 'redo' ],
+              heading: {
+       	        options: [
+	          { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+	          { model: 'heading1', view: 'h1', title: 'Title', class: 'ck-heading_heading1' },
+	          { model: 'heading2', view: 'h2', title: 'Heading', class: 'ck-heading_heading2' },
+	          { model: 'heading3', view: 'h3', title: 'Subheading', class: 'ck-heading_heading3' } 
+	        ]
+              } 
+            } )
+            .then( editor => { console.log( editor ); })
+            .catch( error => { console.log( error ); });
+        </script> 
       </form>
-    <script>
-      CKEDITOR.replace('about-me');
-    </script>
     </div>
     
     <form id="message-form" action="/messages" method="POST" class="hidden">
-      Enter a new message:
       <br/>
-      <textarea name="text" id="message-input"></textarea>
+      <textarea name="text" id="message-input" placeholder="new message" rows=4 required></textarea>
       <br/>
-      <input type="submit" value="Submit">
+      <input type="submit" value="Submit"> 
+      <script>
+        ClassicEditor
+          .create(document.querySelector( '#message-input' ), {
+            removePlugins: [ 'blockQuote' ],
+
+	    //image upload feature to be incorporated with image project
+            toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'imageUpload', 'undo', 'redo'	],
+            heading: {
+       	      options: [
+	        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+	        { model: 'heading1', view: 'h1', title: 'Title', class: 'ck-heading_heading1' },
+	        { model: 'heading2', view: 'h2', title: 'Heading', class: 'ck-heading_heading2' },
+	        { model: 'heading3', view: 'h3', title: 'Subheading', class: 'ck-heading_heading3' } 
+	      ]
+            }
+          } )
+          .then( editor => { console.log( editor ); })
+          .catch( error => { console.log( error ); });
+      </script> 
     </form>
-    <script>
-      CKEDITOR.replace('text');
-    </script>
+
     <hr/>
 
     <div id="message-container">Loading...</div>
+
   </body>  
 </html>
