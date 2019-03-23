@@ -75,8 +75,11 @@ public class MessageServlet extends HttpServlet {
       return;
     }
 
+    // Allows only basic text editing, image uploading, and linking functions
+    Whitelist whitelist = Whitelist.basicWithImages().addTags("a").addAttributes("a", "href");
+    String text = Jsoup.clean(request.getParameter("text"), whitelist);
+
     String user = userService.getCurrentUser().getEmail();
-    String text = Jsoup.clean(request.getParameter("text"), Whitelist.basic());
     String recipient = request.getParameter("recipient");
 
     Message message = new Message(user, text, recipient);

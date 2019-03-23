@@ -50,11 +50,10 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
-    //Whitelist whitelist = Whitelist.basic();
-    //whitelist.addTags("a");
-    //whitelist.addAttributes("a","href");
-    
-    String aboutMe = Jsoup.clean(request.getParameter("about-me"), Whitelist.basic());
+    // Allows only basic text editing, image uploading, and linking functions
+    Whitelist whitelist = Whitelist.basicWithImages().addTags("a").addAttributes("a", "href");
+
+    String aboutMe = Jsoup.clean(request.getParameter("about-me"), whitelist);
     String userEmail = userService.getCurrentUser().getEmail();
     User user = new User(userEmail, aboutMe);
     datastore.storeUser(user);
