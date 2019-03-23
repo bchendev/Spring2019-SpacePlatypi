@@ -18,14 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 public class MapsServlet extends HttpServlet {
   JsonArray starbucksLocationsArray;
   
-  public SbLocation  parseFile(String line){
-      String[] cells = line.split(",");
-      String country = cells[0];
-      double lat = Double.parseDouble(cells[1]);
-      double lng = Double.parseDouble(cells[2]);
+  public SbLocation  parseFile(String line) {
+    String[] cells = line.split(",");
+    String country = cells[0];
+    double lat = Double.parseDouble(cells[1]);
+    double lng = Double.parseDouble(cells[2]);
 
-      SbLocation loc = new SbLocation(country, lat, lng);
-      return loc;
+    SbLocation loc = new SbLocation(country, lat, lng);
+    return loc;
   }
 
   @Override
@@ -34,10 +34,11 @@ public class MapsServlet extends HttpServlet {
     new SbLocation();
     Gson gson = new Gson();
     String line = "";
-    Scanner scanner = new Scanner(getServletContext().getResourceAsStream("/WEB-INF/starbucks-data.csv"));
-      while (scanner.hasNextLine()) {
-        line = scanner.nextLine();
-        starbucksLocationsArray.add(gson.toJsonTree(parseFile(line)));
+    Scanner scanner = 
+      new Scanner(getServletContext().getResourceAsStream("/WEB-INF/starbucks-data.csv"));
+    while (scanner.hasNextLine()) {
+      line = scanner.nextLine();
+      starbucksLocationsArray.add(gson.toJsonTree(parseFile(line)));
     }
     scanner.close();
   }
@@ -53,10 +54,10 @@ public class MapsServlet extends HttpServlet {
     double lat;
     double lng;
     
-   private SbLocation(){
-     country = "";
-     lat = 0;
-     lng = 0;
+    private SbLocation() {
+      country = "";
+      lat = 0;
+      lng = 0;
     }
     
     private SbLocation(String country, double lat, double lng) {
