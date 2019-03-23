@@ -19,9 +19,9 @@ public class MapsServlet extends HttpServlet {
   JsonArray starbucksLocationsArray;
   
   /**
-   *Method to parse through a comma serpearted string
+   *Method to parse through a comma serpearted string.
    */
-  
+
   public SbLocation parseFile(String line) {
     String[] cells = line.split(",");
     String country = cells[0];
