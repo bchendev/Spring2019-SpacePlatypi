@@ -9,42 +9,41 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-/**
- * Returns Starbucks Locations a JSON array, e.g. [{"lat": 38.4404675, "lng": -122.7144313}]
+/** A servlet that handles parsing JSON Starbucks data and serving in an HttpServlet Response.
  */
-
 @WebServlet("/starbucks-data")
 public class MapsServlet extends HttpServlet {
   JsonArray starbucksLocationsArray;
   
-  /**
-   *Method to parse through a comma serpearted string.
+  /** Method to parse a comma separated string representing a Starbucks location.
    */
-
-  public SbLocation parseFile(String line) {
+  public SbLocation getStarbucksLocation(String line) {
     String[] cells = line.split(",");
     String country = cells[0];
     double lat = Double.parseDouble(cells[1]);
     double lng = Double.parseDouble(cells[2]);
 
-    SbLocation loc = new SbLocation(country, lat, lng);
-    return loc;
+    return new SbLocation(country, lat, lng);
+  }
+
+  /** Method to parse a file and add it to the starbucksLocationArray.
+   */
+  private void parseFile(String fileName) {
+    starbucksLocationsArray = new JsonArray();
+    Gson gson = new Gson();
+    String line;
+    Scanner scanner = 
+        new Scanner(getServletContext().getResourceAsStream(fileName));
+    while (scanner.hasNextLine()) {
+      line = scanner.nextLine();
+      starbucksLocationsArray.add(gson.toJsonTree(getStarbucksLocation(line)));
+    }
+    scanner.close();
   }
 
   @Override
   public void init() {
-    starbucksLocationsArray = new JsonArray();
-    new SbLocation();
-    Gson gson = new Gson();
-    String line = "";
-    Scanner scanner = 
-        new Scanner(getServletContext().getResourceAsStream("/WEB-INF/starbucks-data.csv"));
-    while (scanner.hasNextLine()) {
-      line = scanner.nextLine();
-      starbucksLocationsArray.add(gson.toJsonTree(parseFile(line)));
-    }
-    scanner.close();
+    parseFile("/WEB-INF/starbucks-data.csv");
   }
 
   @Override
@@ -57,12 +56,6 @@ public class MapsServlet extends HttpServlet {
     String country;
     double lat;
     double lng;
-    
-    private SbLocation() {
-      country = "";
-      lat = 0;
-      lng = 0;
-    }
     
     private SbLocation(String country, double lat, double lng) {
       this.country = country;
