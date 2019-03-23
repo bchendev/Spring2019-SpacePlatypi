@@ -18,7 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 public class MapsServlet extends HttpServlet {
   JsonArray starbucksLocationsArray;
   
-  public SbLocation  parseFile(String line) {
+  /**
+   *Method to parse through a comma serpearted string
+   */
+  
+  public SbLocation parseFile(String line) {
     String[] cells = line.split(",");
     String country = cells[0];
     double lat = Double.parseDouble(cells[1]);
@@ -35,7 +39,7 @@ public class MapsServlet extends HttpServlet {
     Gson gson = new Gson();
     String line = "";
     Scanner scanner = 
-      new Scanner(getServletContext().getResourceAsStream("/WEB-INF/starbucks-data.csv"));
+        new Scanner(getServletContext().getResourceAsStream("/WEB-INF/starbucks-data.csv"));
     while (scanner.hasNextLine()) {
       line = scanner.nextLine();
       starbucksLocationsArray.add(gson.toJsonTree(parseFile(line)));
