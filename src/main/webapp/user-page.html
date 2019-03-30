@@ -31,17 +31,21 @@ limitations under the License.
           width:100%;
           margin: 0;
 	  height: 100%;
+	  margin: 0;
           min-height: 100%;
 	  font-family: Arial, Helvetica, sans-serif;
 	}
 
+	h1,h2,h3{
+	  padding: 10px;
+	}
 	/* Style the header */
 	header {
 	  background-color: #666;
     	  padding-left: 20px;
-    	  padding-top: 5px;
-    	  padding-bottom: 5px;
-	  font-size: 35px;
+    	  padding-top: 10px;
+    	  padding-bottom: 10px;
+	  font-size: 25px;
 	  color: white;
 	}
 
@@ -58,6 +62,8 @@ limitations under the License.
 	  flex: 1;
 	  background: #ccc;
 	  padding-left: 20px;
+	  padding-top: 5px;
+	  padding-bottom: 5px;
 	}
 
 	/* Style the list inside the menu */
@@ -73,6 +79,24 @@ limitations under the License.
 	  flex: 2;
 	  background-color: #f1f1f1;
 	  padding: 10px;
+	}
+
+	.column {
+	  float: left;
+	}
+
+	.left {
+	  width: 33%;
+	}
+
+	.right {
+	  width: 67%;
+	}
+
+	/* Clear floats after the columns */
+	.row {
+	  content: "";
+	  clear: both;
 	}
 
 	/* Style the footer */
@@ -96,83 +120,104 @@ limitations under the License.
     <link rel="stylesheet" href="/css/user-page.css">
     <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>   
     <script src="/js/user-page-loader.js"></script>
-  </head>
+    </head>
 
-  <body onload="buildUI();">
-    <section>
+    <body onload="buildUI();">
       <nav>
         <ul id="navigation">
           <li><a href="/">Home</a></li>
         </ul>
       </nav>
-    </section>
 
-    <header>
-      <div border: 20px black>Search Bar</div>
-    </header>
+      <header>
+        <div style="border-style: solid; border-width: 2px;">Search Bar</div>
+      </header>
+    
+      <div class="row">	
 
-    <section>  
-      <h1 id="page-title">User Page</h1>
-    </section>
-
-  <section>
-    <article>
-    <div id="about-me-container">Loading...</div>
-    <div id="about-me-form" class="hidden">
-      <form action="/about" method="POST">
-        <textarea name="about-me" id="about-me-input" placeholder="about me" rows=4 required></textarea>
-        <br/>
-        <input type="submit" value="Submit"> 
-        <script>
-          ClassicEditor
-            .create(document.querySelector( '#about-me-input' ), {
-	      removePlugins: [ 'BlockQuote '],
-	      // Image upload feature to be incorporated with image project
-              toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'imageUpload', 'undo', 'redo' ],
-              heading: {
-       	        options: [
-	          { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-	          { model: 'heading1', view: 'h1', title: 'Title', class: 'ck-heading_heading1' },
-	          { model: 'heading2', view: 'h2', title: 'Heading', class: 'ck-heading_heading2' },
-	          { model: 'heading3', view: 'h3', title: 'Subheading', class: 'ck-heading_heading3' } 
-	        ]
-              } 
-            } )
-            .then( editor => { console.log( editor ); })
-            .catch( error => { console.log( error ); });
-        </script> 
-      </form>
+      <div class="column left">
+        <article style="background-color: #d9d9d9; padding-bottom: 250px"> Profile Pic </article>
+	<article style="background-color: #ccc; padding-bottom: 275px">
+          <h3>User info + Icon</h3>
+	  <h3>Handle: @messageUser</h3>
+	  <h3>Email: messageUser@gmail.com</h3>
+	  <h3>Phone: 111-111-1111</h3>
+	</article>
       </div>
-      </article>
-      <article> 
-        <form id="message-form" action="/messages" method="POST" class="hidden">
-          <textarea name="text" id="message-input" placeholder="new message" rows=4 required></textarea>
-          <br/>
-          <input type="submit" value="Submit"> 
-          <script>
-            ClassicEditor
-              .create(document.querySelector( '#message-input' ), {
-                removePlugins: [ 'blockQuote' ],
-	        // Image upload feature to be incorporated with image project
-                toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'imageUpload', 'undo', 'redo'	],
-                heading: {
-       	          options: [
-	            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-	            { model: 'heading1', view: 'h1', title: 'Title', class: 'ck-heading_heading1' },
-	            { model: 'heading2', view: 'h2', title: 'Heading', class: 'ck-heading_heading2' },
-	            { model: 'heading3', view: 'h3', title: 'Subheading', class: 'ck-heading_heading3' } 
-	          ]
-                }
-              } )
-              .then( editor => { console.log( editor ); })
-              .catch( error => { console.log( error ); });
-          </script> 
-        </form>
-      </article>
-      <hr/>
-    </section>
 
-    <div id="message-container">Loading...</div>
+      <div class="column right">  
+        <h1 id="page-title">User Page</h1>
+
+        <article>
+          <h1>Bio and About Me</h1>
+       	  <div id="about-me-container">Loading...</div>
+	  <div id="about-me-form" class="hidden">
+            <form action="/about" method="POST">
+            <textarea name="about-me" id="about-me-input" placeholder="about me" rows=4 required></textarea>
+            <br/>
+            <input type="submit" value="Submit"> 
+              <script>
+                ClassicEditor
+                  .create(document.querySelector( '#about-me-input' ),{
+                  removePlugins: [ 'BlockQuote '],
+	            // Image upload feature to be incorporated with image project
+                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'imageUpload', 'undo', 'redo' ],
+                    heading: {
+     	              options: [
+	                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Title', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading', class: 'ck-heading_heading2' },
+	                { model: 'heading3', view: 'h3', title: 'Subheading', class: 'ck-heading_heading3' } 
+                      ]
+                    } 
+                  } )
+                  .then( editor => { console.log( editor ); })
+                  .catch( error => { console.log( error ); });
+              </script> 
+            </form>
+          </div>
+        </article>
+        <article> 
+          <form id="message-form" action="/messages" method="POST" class="hidden">
+            <textarea name="text" id="message-input" placeholder="new message" rows=4 required></textarea>
+            <br/>
+            <input type="submit" value="Submit"> 
+              <script>
+                ClassicEditor
+                  .create(document.querySelector( '#message-input' ), {
+                  removePlugins: [ 'blockQuote' ],
+	          // Image upload feature to be incorporated with image project
+                  toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'imageUpload', 'undo', 'redo'	],
+                  heading: {
+       	            options: [
+	              { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+	              { model: 'heading1', view: 'h1', title: 'Title', class: 'ck-heading_heading1' },
+	              { model: 'heading2', view: 'h2', title: 'Heading', class: 'ck-heading_heading2' },
+	              { model: 'heading3', view: 'h3', title: 'Subheading', class: 'ck-heading_heading3' } 
+	            ]
+                  }
+                } )
+                .then( editor => { console.log( editor ); })
+                .catch( error => { console.log( error ); });
+            </script> 
+          </form>
+        
+        <div id="message-container">Loading...</div>
+
+      </article>
+
+      <section>
+        <article>
+	  <h1 style="margin: 0; background-color: #c4c4c4;"> Location </h1>
+          <h2 style="margin: 0; padding-bottom: 200px;background-color: #bababa;"> MAP </h2>
+        </article>
+        <article>
+          <h1 style="margin: 0; padding-bottom: 250px;background-color: #b3b3b3;"> Groups </h1>
+        </article>
+      </section>
+    </div>
+  </div>
+
 
   </body>  
 </html>
