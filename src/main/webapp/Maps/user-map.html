@@ -8,7 +8,6 @@
     let map;
 
     function createMap(){
-   
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 38.5949, lng: -94.8923},
         zoom: 4
@@ -29,6 +28,7 @@
     }
   </style>
 </head>
+
 <body onload="createMap();">
  <h1>User Map</h1>
  <div id="map"></div>
