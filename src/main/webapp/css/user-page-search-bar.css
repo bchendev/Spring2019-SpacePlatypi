@@ -1,0 +1,16 @@
+#searchBar{
+	border: 1px solid #00000;
+	font-size: 16px;
+	padding: 10px;
+	outline: none;
+	width: 250px;
+}
+#searchBtn{
+	border: 1px solid #000000;
+	font-size: 16px;
+	padding: 5px;
+	background: #87ceeb;
+	font-weight: bold;
+	cursor: pointer;
+	outline: none;
+}
