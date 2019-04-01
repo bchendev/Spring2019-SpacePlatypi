@@ -4,15 +4,22 @@
   <title>User Map</title>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVU50aOCT7FRl8BZppVuXuZ05Wa41O0M4"></script>
   <script>
+<<<<<<< HEAD
     let map;
     let editMarker;
   
+=======
+
+    let map;
+
+>>>>>>> Files updated after running git reset --soft command
     function createMap(){
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 38.5949, lng: -94.8923},
         zoom: 4
       });
    
+<<<<<<< HEAD
       map.addListener('click', (event) => {
         createMarkerForEdit(event.latLng.lat(), event.latLng.lng());
       });
@@ -69,6 +76,14 @@
       containerDiv.appendChild(button);
      
       return containerDiv;
+=======
+     map.addListener('click', (event) => {
+      new google.maps.Marker({
+        position: event.latLng,
+        map: map
+      });  
+});
+>>>>>>> Files updated after running git reset --soft command
     }
   </script>
   <style>
@@ -80,7 +95,12 @@
 </head>
 
 <body onload="createMap();">
+<<<<<<< HEAD
   <h1>User Map</h1>
   <div id="map"></div>
+=======
+ <h1>User Map</h1>
+ <div id="map"></div>
+>>>>>>> Files updated after running git reset --soft command
 </body>
 </html>
