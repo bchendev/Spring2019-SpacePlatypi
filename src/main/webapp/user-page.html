@@ -17,6 +17,7 @@ limitations under the License.
     <title>User Page</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
 	* {
 	  box-sizing: border-box;
@@ -54,17 +55,6 @@ limitations under the License.
        	section {
 	  display: -webkit-flex;
 	  display: flex;
-	}
-
-	/* Style the navigation menu */
-	nav {
-	  -webkit-flex: 1;
-	  -ms-flex: 1;
-	  flex: 1;
-	  background: #ccc;
-	  padding-left: 20px;
-	  padding-top: 5px;
-	  padding-bottom: 5px;
 	}
 
 	/* Style the list inside the menu */
@@ -124,17 +114,15 @@ limitations under the License.
     </head>
 
     <body onload="buildUI();">
-      <nav>
-        <ul id="navigation">
-          <li><a href="/">Home</a></li>
-        </ul>
+      <nav class="nav d-flex justify-content-between" style="padding: 15px;" id="navigation">
+        <li><a href="/">Home</a></li>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
       </nav>
-      <header>
-        <div style="border-style: solid; border-width: 2px;">Search Bar</div>
-      </header>
     
       <div class="row">	
-
       <div class="column left">
         <article style="background-color: #d9d9d9; padding-bottom: 250px"> Profile Pic </article>
 	<article style="background-color: #ccc; padding-bottom: 275px">
