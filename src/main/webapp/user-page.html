@@ -17,106 +17,7 @@ limitations under the License.
     <title>User Page</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-	* {
-	  box-sizing: border-box;
-	}
-
-	html {
-	  width: 100%;
-          height: 100%;
-	}
-
-  body {
-    width:100%;
-    margin: 0;
-	  height: 100%;
-	  margin: 0;
-    min-height: 100%;
-	  font-family: Arial, Helvetica, sans-serif;
-	}
-
-	h1,h2,h3{
-	  padding: 10px;
-	}
-
-	/* Style the header */
-	header {
-	  background-color: #666;
-    padding-left: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-	  font-size: 25px;
-	  color: white;
-	}
-
-	/* Container for flexboxes */
-       	section {
-	  display: -webkit-flex;
-	  display: flex;
-	}
-
-	/* Style the navigation menu */
-	nav {
-	  -webkit-flex: 1;
-	  -ms-flex: 1;
-	  flex: 1;
-	  background: #ccc;
-	  padding-left: 20px;
-	  padding-top: 5px;
-	  padding-bottom: 5px;
-	}
-
-	/* Style the list inside the menu */
-	nav ul {
-	  list-style-type: none;
-	  padding: 0;
-	}
-
-	/* Style the content */
-	article {
-	  -webkit-flex: 2;
-	  -ms-flex: 2;
-	  flex: 2;
-	  background-color: #f1f1f1;
-	  padding: 10px;
-	}
-
-	.column {
-	  float: left;
-	}
-
-	.left {
-	  width: 33%;
-	}
-
-	.right {
-	  width: 67%;
-	}
-
-	/* Clear floats after the columns */
-	.row {
-	  content: "";
-	  clear: both;
-	}
-
-	/* Style the footer */
-	footer {
-	  background-color: #777;
-	  padding: 10px;
-	  text-align: center;
-	  color: white;
-	}
-
-	/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
-	@media (max-width: 600px) {
-	  section {
-	    -webkit-flex-direction: column;
-	    flex-direction: column;
-	  }
-	}
-    </style>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
     <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>   
@@ -124,34 +25,38 @@ limitations under the License.
     </head>
 
     <body onload="buildUI();">
-      <nav>
-        <ul id="navigation">
-          <li><a href="/">Home</a></li>
-        </ul>
+
+      <nav class="nav d-flex justify-content-between" style="padding: 15px 15px 0px 15px;" id="navigation">
+        <li><a href="/"><img src="/images/logo.jpg" width="125" height="50" alt=""></a></li>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
       </nav>
-      <header>
-        <div style="border-style: solid; border-width: 2px;">Search Bar</div>
-      </header>
-    
-      <div class="row">	
 
-      <div class="column left">
-        <article style="background-color: #d9d9d9; padding-bottom: 250px"> Profile Pic </article>
-	<article style="background-color: #ccc; padding-bottom: 275px">
-          <h3>User info + Icon</h3>
-	  <h3>Handle: @messageUser</h3>
-	  <h3>Email: messageUser@gmail.com</h3>
-	  <h3>Phone: 111-111-1111</h3>
-	</article>
+     <hr>
+
+      <div class="row">    
+      <div class="col-3 px-0" style="margin-right: 20px">
+	  <div class="container" style="margin: 20px; width: 100%;">
+            <img src="/images/propic.jpg" class="rounded-circle mx-auto d-block" style="width: 100%; height: 100%;" alt="Profile Pic">
+     	  </div>
+	  <div class="container" style="margin: 25px">
+            <h5>User info + Icon
+	    Handle: @messageUser
+	    Email: messageUser@gmail.com
+	    Phone: 111-111-1111</h5>
+	  </div>
       </div>
+      <div class="col px-0">
+        <h1 id="page-title" class="container">User Page</h1>
 
-      <div class="column right">  
-        <h1 id="page-title">User Page</h1>
+	<hr>
 
-        <article>
-          <h1>Bio and About Me</h1>
-       	  <div id="about-me-container">Loading...</div>
-	  <div id="about-me-form" class="hidden">
+        <div class="container">
+          <h4>About Me</h4>
+       	  <div id="about-me-container" style="margin-bottom: 20px">Loading...</div>
+	  <div id="about-me-form" class="hidden" style="margin: 0px 20px 20px 0px">
             <form action="/about" method="POST">
             <textarea name="about-me" id="about-me-input" placeholder="about me" rows=4 required></textarea>
             <br/>
@@ -176,9 +81,9 @@ limitations under the License.
               </script> 
             </form>
           </div>
-        </article>
-        <article> 
-          <form id="message-form" action="/messages" method="POST" class="hidden">
+        </div>
+        <div class="container"> 
+          <form id="message-form" action="/messages" method="POST" class="hidden" style="margin: 0px 20px 20px 0px">
             <textarea name="text" id="message-input" placeholder="new message" rows=4 required></textarea>
             <br/>
             <input type="submit" value="Submit"> 
@@ -204,17 +109,17 @@ limitations under the License.
         
         <div id="message-container">Loading...</div>
 
-      </article>
+      </div>
 
-      <section>
-        <article>
-	  <h1 style="margin: 0; background-color: #c4c4c4;"> Location </h1>
-          <h2 style="margin: 0; padding-bottom: 200px;background-color: #bababa;"> MAP </h2>
-        </article>
-        <article>
-          <h1 style="margin: 0; padding-bottom: 250px;background-color: #b3b3b3;"> Groups </h1>
-        </article>
-      </section>
+      <div class="row container" style="margin: 0px">
+        <div class="col px-0">
+	  <h4 style="margin-bottom: 20px;"> Location </h4>
+          <h4>Map</h4>
+        </div>
+        <div class="col px-0">
+          <h4> Groups </h4>
+        </div>
+      </div>
     </div>
   </div>
   </body>  
