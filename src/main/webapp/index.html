@@ -1,12 +1,9 @@
 <!--
 Copyright 2019 Google Inc.
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
-
     http://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,19 +16,54 @@ limitations under the License.
   <head>
     <meta charset="UTF-8">
     <title>CodeU 2019 Starter Project</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/navigation-loader.js"></script>
+    <style>
+      .shadowbox {
+        box-shadow: 2px 2px 5px #a3a8af;      
+      }
+    </style>
   </head>
   <body onload="addLoginOrLogoutLinkToNavigation();">
-    <nav>
-      <ul id="navigation">
-        <li><a href="/">Home</a></li>
-	<li><a href="/feed.html">Feed</a></li>
-	<li><a href="/stats.html">Stats</a></li>
-      </ul>
+    <nav class="nav" style="padding: 15px;" id="navigation">
+      <li><a href="/" tabindex="-1" aria-disabled="true">Home</a></li>
+      <li><a href="/feed.html">Feed</a></li>
+      <li><a href="/stats.html">Stats</a></li>
     </nav>
-    <h1>CodeU Starter Project</h1>
-    <p>Brian is the awesomest PA ;)</p>
-    <p>Facts only ^^</p>
+  
+    <div class="container-fluid" style="padding-top: 100px; padding-bottom: 20px">
+	<div class="container"><div class="mx-auto d-block col-md-2 px-0">
+          <img src="/images/logo.jpg" class="rounded img-fluid" alt="Platypi Logo">
+	</div>
+    </div>
+	<div class="container" style="padding: 25px; width: 50%">
+          <h3 class="text-justify rounded shadowbox" style="color: #e0e2e5; padding: 7px">Search Bar</h3>
+	</div>
+	<div class="container" style="width: 65%">
+	<div class="row" style="margin-top: 10px;">  
+	  <div class="col px-0">
+       	    <div class="rounded container" style="width: 85%; background-color: #e0e2e5">
+	      <p class="text-center" style="padding:10px">Java</p>
+	    </div>
+	  </div>
+	  <div class="col px-0">
+       	    <div class="rounded container" style="width: 85%; background-color: #e0e2e5">
+	      <p class="text-center" style="padding:10px">Class of 2021</p>
+	    </div>
+	  </div>
+	  <div class="col px-0">
+       	    <div class="rounded container" style="width: 85%; background-color: #e0e2e5">
+	      <p class="text-center" style="padding:10px">Howard University</p>
+	    </div>
+	  </div>
+	  <div class="col px-0">
+       	    <div class="rounded container" style="width: 85%; background-color: #e0e2e5">
+	      <p class="text-center" style="padding:10px">Project Adivsor</p>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
   </body>
 </html>
