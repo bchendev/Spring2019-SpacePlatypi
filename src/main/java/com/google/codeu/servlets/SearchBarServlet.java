@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** A servlet that handles the input of a search query and the redirection to the results page */
+/** A servlet that handles the input of a search query and the redirection to the results page. */
 @WebServlet("/search")
 public class SearchBarServlet extends HttpServlet {
   private Datastore datastore;
