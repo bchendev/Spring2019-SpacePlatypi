@@ -29,16 +29,13 @@ public class SearchBarServlet extends HttpServlet {
     // i think it would be a good idea to use a loop here because we want to look at multiple users
     // in the long run
     // how are users stored in datastore? what would be the best search algorithim
+    String user = request.getParameter("user");
+    String query = request.getParameter("input");
     User userData = datastore.getUser(user);
     response.setContentType("text/html");
-    String query = request.getParemeter("input"); // im unsure about how get paremeter works
 
     if (query == null || query.isEmpty()) {
       // No-op if the request is invalid.
-      return;
-    }
-
-    if (query = userData) {
       return;
     }
   }
