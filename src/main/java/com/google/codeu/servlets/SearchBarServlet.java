@@ -22,38 +22,25 @@ public class SearchBarServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-    // first, take the request and compare it to users stored in datastore
-    // whitelist is important to make sure nothing can be written to break out code
-    // then, whichever users match the input, send them to /search-results.html
-    // i think it would be a good idea to use a loop here because we want to look at multiple users
-    // in the long run
-    // how are users stored in datastore? what would be the best search algorithim
+    String user = request.getParameter("user");
+    String query = request.getParameter("query");
     User userData = datastore.getUser(user);
     response.setContentType("text/html");
-    String query = request.getParemeter("input"); // im unsure about how get paremeter works
 
     if (query == null || query.isEmpty()) {
       // No-op if the request is invalid.
-      return;
-    }
-
-    if (query = userData) {
       return;
     }
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // gonna redirect the user the the results page
     UserService userService = UserServiceFactory.getUserService();
     if (!userService.isUserLoggedIn()) {
       response.sendRedirect("/index.html");
       return;
     }
-
-    // sendRedirect to search-results.html
-
-    response.sendRedirect("/search-results.html");
+    String query = request.getParameter("query");
+    response.sendRedirect("/search-results.html?query=" + query);
   }
 }
