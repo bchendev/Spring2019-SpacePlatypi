@@ -31,7 +31,7 @@ public class SearchBarServlet extends HttpServlet {
     // how are users stored in datastore? what would be the best search algorithim
 
     String user = request.getParameter("user");
-    String query = request.getParameter("input");
+    String query = request.getParameter("query");
     User userData = datastore.getUser(user);
     response.setContentType("text/html");
 
@@ -51,7 +51,6 @@ public class SearchBarServlet extends HttpServlet {
     }
 
     // sendRedirect to search-results.html
-
-    response.sendRedirect("/search-results.html");
+    response.sendRedirect("/search-results.html?query=" + query);
   }
 }
