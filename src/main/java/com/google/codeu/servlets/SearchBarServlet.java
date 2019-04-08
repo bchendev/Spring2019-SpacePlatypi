@@ -49,7 +49,7 @@ public class SearchBarServlet extends HttpServlet {
       response.sendRedirect("/index.html");
       return;
     }
-
+    String query = request.getParameter("query");
     // sendRedirect to search-results.html
     response.sendRedirect("/search-results.html?query=" + query);
   }
