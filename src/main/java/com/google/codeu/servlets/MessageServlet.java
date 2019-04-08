@@ -92,7 +92,7 @@ public class MessageServlet extends HttpServlet {
     String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());    
     String regex = "(https?://\\S+\\.(png|jpg))";
     String replacement = "<img src=\"$1\" />";
-    String textWithImagesReplaced = userText.replaceAll(regex, replacement);
+    //String textWithImagesReplaced = userText.replaceAll(regex, replacement);
 
     Message message = new Message(user, text, recipient, sentimentScore);
     datastore.storeMessage(message);
