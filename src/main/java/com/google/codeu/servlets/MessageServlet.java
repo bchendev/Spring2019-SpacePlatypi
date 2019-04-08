@@ -87,13 +87,6 @@ public class MessageServlet extends HttpServlet {
     String recipient = request.getParameter("recipient");
     float sentimentScore = getSentimentScore(text);
 
-    // Replaces image expression text with the readable URL 
-    String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
-
-    String regex = "(https?://\\S+\\.(png|jpg))";
-    String replacement = "<img src=\"$1\" />";
-    String textWithImagesReplaced = userText.replaceAll(regex, replacement);
-
     Message message = new Message(user, text, recipient, sentimentScore);
     datastore.storeMessage(message);
 
