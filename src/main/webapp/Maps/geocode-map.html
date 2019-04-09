@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Geocode Map</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <div class="card-block" id="formatted_address"></div>
+    <div class="card-block" id="address_components"></div>
+    <div class="card-block" id="geometry"></div>
+    <h2 id="textcenter">Enter Location: </h2>
+    <form id="location-form">
+      <input id="location-input" class="form-control form-control-lg"></input>
+      <br>
+      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </form>
+  </div>
+  
+  <script>
+    
+    var locationForm = document.getElementById('location-form');
+
+    locationForm.addEventListener('submit', geocode);
+
+    function geocode(e){
+
+      e.preventDefault();
+      var location = document.getElementById('location-input').value;
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+        params:{
+          address:location,
+          key:'AIzaSyBVU50aOCT7FRl8BZppVuXuZ05Wa41O0M4'
+        }
+      })
+      .then(function(response){
+
+        console.log(response);
+        
+        var formattedAddress = response.data.results[0].formatted_address;
+        var formattedAddressOutput = `
+          <ul class="list-group">
+           <li class="list-group-item">${formattedAddress}</li>
+          </ul>
+        `;
+        
+        document.getElementById('formatted_address').innerHTML = formattedAddressOutput;
+
+        var addressComponents = response.data.results[0].address_components;
+        var addressComponentsOuput = '<ul class="list-group">';
+        for(var i = 0; i < addressComponents.length; i++){
+          addressComponentsOuput += `
+            <li class="list-group-item">${addressComponents[i].types[0]}: ${addressComponents[i].long_name}</li>
+          `;
+        }
+        addressComponentsOuput += '</ul>'
+
+        var lat = response.data.results[0].geometry.location.lat;
+        var lng = response.data.results[0].geometry.location.lng;
+        var geometryOuput = `
+          <ul class="list-group">
+           <li class="list-group-item">Latitude: ${lat}</li>
+           <li class="list-group-item">Longitude: ${lng}</li>
+          </ul>
+        `;
+
+        document.getElementById('address_components').innerHTML = addressComponentsOuput;
+        document.getElementById('geometry').innerHTML = geometryOuput;
+      })
+      .catch(function(error){
+        console.log(error);
+      });
+    }
+  </script>
+</body>
+</html>
