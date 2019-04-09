@@ -6,6 +6,7 @@ public class UserMarker {
   private double lng;
   private String content;
 
+  /** UserMarker constructor.*/
   public UserMarker(double lat, double lng, String content) {
     this.lat = lat;
     this.lng = lng;
