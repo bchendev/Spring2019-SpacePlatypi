@@ -44,4 +44,3 @@ public class SearchBarServlet extends HttpServlet {
     response.sendRedirect("/search-results.html?query=" + query);
   }
 }
-
