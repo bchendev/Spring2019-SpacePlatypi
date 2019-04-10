@@ -5,7 +5,7 @@ public class User {
 
   private final String email;
   private final String aboutMe;
-  Private final String location;
+  private final String location;
 
   public User(String email, String aboutMe, String location) {
     this.email = email;
@@ -22,6 +22,6 @@ public class User {
   }
 
   public String getLocation() {
-    return location; 
-  } 
+    return location;
+  }
 }
