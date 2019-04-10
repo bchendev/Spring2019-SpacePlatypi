@@ -3,12 +3,14 @@ package com.google.codeu.data;
 /** Keeps track of user information. */
 public class User {
 
-  private String email;
-  private String aboutMe;
+  private final String email;
+  private final String aboutMe;
+  Private final String location;
 
-  public User(String email, String aboutMe) {
+  public User(String email, String aboutMe, String location) {
     this.email = email;
     this.aboutMe = aboutMe;
+    this.location = location;
   }
 
   public String getEmail() {
@@ -18,4 +20,8 @@ public class User {
   public String getAboutMe() {
     return aboutMe;
   }
+
+  public String getLocation() {
+    return location; 
+  } 
 }
