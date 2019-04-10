@@ -7,7 +7,7 @@ public class UserMarker {
   private final double lng;
   private final String content;
 
- /**
+  /**
  * Constructs a map marker.
  * @param lat latitude coordinate system
  * @param lng longitutde coordinate system
