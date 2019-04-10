@@ -3,9 +3,9 @@ package com.google.codeu.data;
 /** Represents a user generated marker on a map. */
 public class UserMarker {
 
-  private double lat;
-  private double lng;
-  private String content;
+  private final double lat;
+  private final double lng;
+  private final String content;
 
   /**
  * Constructs a map marker.
