@@ -100,6 +100,22 @@ public class MessageServlet extends HttpServlet {
     response.sendRedirect("/user-page.html?user=" + recipient);
   }
 
+  // Translates text into target language
+  private void translateMessages(List<Message> messages, String targetLanguageCode) {
+    Translate translate = TranslateOptions.getDefaultInstance().getService();
+
+    for (Message message : messages) {
+      String originalText = message.getText();
+
+      Translation translation =
+          translate.translate(originalText, TranslateOption.targetLanguage(targetLanguageCode));
+      String translatedText = translation.getTranslatedText();
+
+      message.setText(translatedText);
+    }
+  }
+
+
   /** Analyzes a message and returns that message's sentiment score. */
   private float getSentimentScore(String text) throws IOException {
     Document doc = Document.newBuilder().setContent(text).setType(Type.PLAIN_TEXT).build();
