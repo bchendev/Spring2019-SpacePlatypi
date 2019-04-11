@@ -150,7 +150,8 @@ public class Datastore {
     }
 
     String aboutMe = (String) userEntity.getProperty("aboutMe");
-    User user = new User(email, aboutMe);
+    String location = (String) userEntity.getProperty("location");
+    User user = new User(email, aboutMe, location);
 
     return user;
   }
