@@ -7,6 +7,7 @@ public class User {
   private final String aboutMe;
   private final String location;
 
+  /** Represents a user entity's constructor. */
   public User(String email, String aboutMe, String location) {
     this.email = email;
     this.aboutMe = aboutMe;
