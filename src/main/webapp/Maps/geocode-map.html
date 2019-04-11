@@ -2,77 +2,71 @@
 <html>
 <head>
   <title>Geocode Map</title>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-</head>
-
-<body>
-  <div class="container">
-    <div class="card-block" id="formatted_address"></div>
-    <div class="card-block" id="address_components"></div>
-    <div class="card-block" id="geometry"></div>
-    <h2 id="textcenter">Enter Location: </h2>
-    <form id="location-form">
-      <input id="location-input" class="form-control form-control-lg"></input>
-      <br>
-      <button type="submit" class="btn btn-primary btn-block">Submit</button>
-    </form>
-  </div>
-  
-  <script>
-    
-    var locationForm = document.getElementById('location-form');
-
-    locationForm.addEventListener('submit', geocode);
-
-    function geocode(e){
-
-      e.preventDefault();
-      var location = document.getElementById('location-input').value;
-      axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-        params:{
-          address:location,
-          key:'AIzaSyBVU50aOCT7FRl8BZppVuXuZ05Wa41O0M4'
-        }
-      })
-      .then(function(response){
-
-        console.log(response);
-        
-        var formattedAddress = response.data.results[0].formatted_address;
-        var formattedAddressOutput = `
-          <ul class="list-group">
-           <li class="list-group-item">${formattedAddress}</li>
-          </ul>
-        `;
-        
-        document.getElementById('formatted_address').innerHTML = formattedAddressOutput;
-
-        var addressComponents = response.data.results[0].address_components;
-        var addressComponentsOuput = '<ul class="list-group">';
-        for(var i = 0; i < addressComponents.length; i++){
-          addressComponentsOuput += `
-            <li class="list-group-item">${addressComponents[i].types[0]}: ${addressComponents[i].long_name}</li>
-          `;
-        }
-        addressComponentsOuput += '</ul>'
-
-        var lat = response.data.results[0].geometry.location.lat;
-        var lng = response.data.results[0].geometry.location.lng;
-        var geometryOuput = `
-          <ul class="list-group">
-           <li class="list-group-item">Latitude: ${lat}</li>
-           <li class="list-group-item">Longitude: ${lng}</li>
-          </ul>
-        `;
-
-        document.getElementById('address_components').innerHTML = addressComponentsOuput;
-        document.getElementById('geometry').innerHTML = geometryOuput;
-      })
-      .catch(function(error){
-        console.log(error);
-      });
+  <style>
+    #floating-panel {
+        position: absolute;
+        top: 7px;
+        left: 15.2%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 3px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 15px;
+        width: 210px;
     }
-  </script>
-</body>
+    #map{
+      width: 300px;
+      height: 250px;
+    }
+  </style>
+
+  <body>
+    <div id="floating-panel">
+      <input id="address" type="textbox" value="">
+      <input id="submit" type="button" value="Add Location">
+    </div>
+    <div id="map"></div>
+  
+    <script>
+      function geocodeMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: {lat: -34.397, lng: 150.644}
+        });
+        var geocoder = new google.maps.Geocoder();
+
+        document.getElementById('submit').addEventListener('click', function() {
+          geocodeAddress(geocoder, map);
+        });
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+
+            var formattedAddress = results[0].formatted_address;
+            var infoWindow = new google.maps.InfoWindow({
+              content: formattedAddress
+            });
+            marker.addListener('click', () => {
+              infoWindow.open(map, marker);
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVU50aOCT7FRl8BZppVuXuZ05Wa41O0M4&callback=geocodeMap"></script>
+  </body>
+</head>
 </html>
