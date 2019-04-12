@@ -22,6 +22,10 @@ import com.google.cloud.language.v1.Document;
 import com.google.cloud.language.v1.Document.Type;
 import com.google.cloud.language.v1.LanguageServiceClient;
 import com.google.cloud.language.v1.Sentiment;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.Translate.TranslateOption;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Message;
 import com.google.gson.Gson;
@@ -33,10 +37,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
-import com.google.cloud.translate.Translate;
-import com.google.cloud.translate.Translate.TranslateOption;
-import com.google.cloud.translate.TranslateOptions;
-import com.google.cloud.translate.Translation;
 
 /** Handles fetching and saving {@link Message} instances. */
 @WebServlet("/messages")
@@ -93,7 +93,7 @@ public class MessageServlet extends HttpServlet {
 
     // Replaces image expression text with the readable URL
     String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
-    
+
     String regex = "(https?://\\S+\\.(png|jpg))";
     String replacement = "<img src=\"$1\" />";
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
@@ -118,7 +118,6 @@ public class MessageServlet extends HttpServlet {
       message.setText(translatedText);
     }
   }
-
 
   /** Analyzes a message and returns that message's sentiment score. */
   private float getSentimentScore(String text) throws IOException {
