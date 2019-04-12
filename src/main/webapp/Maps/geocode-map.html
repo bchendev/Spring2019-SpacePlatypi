@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Geocode Map</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <style>
+    #floating-panel {
+        position: absolute;
+        top: 7px;
+        left: 15.2%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 3px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 15px;
+        width: 210px;
+    }
+    #map{
+      width: 300px;
+      height: 250px;
+    }
+  </style>
+
+  <body>
+    <div id="floating-panel">
+      <input id="address" type="textbox" value="">
+      <input id="submit" type="button" value="Add Location">
+    </div>
+    <div id="map"></div>
+  
+    <script>
+      function geocodeMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: {lat: -34.397, lng: 150.644}
+        });
+        var geocoder = new google.maps.Geocoder();
+
+        document.getElementById('submit').addEventListener('click', function() {
+          geocodeAddress(geocoder, map);
+        });
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+
+            var formattedAddress = results[0].formatted_address;
+            var infoWindow = new google.maps.InfoWindow({
+              content: formattedAddress
+            });
+            marker.addListener('click', () => {
+              infoWindow.open(map, marker);
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVU50aOCT7FRl8BZppVuXuZ05Wa41O0M4&callback=geocodeMap"></script>
+  </body>
+</head>
+</html>
