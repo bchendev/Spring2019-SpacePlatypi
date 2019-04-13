@@ -22,14 +22,14 @@ public class SearchBarServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String user = request.getParameter("user");
-    String query = request.getParameter("query");
-    User userData = datastore.getUser(user);
-    response.setContentType("text/html");
+    
+    response.setContentType("applications/json");
 
-    if (query == null || query.isEmpty()) {
-      // No-op if the request is invalid.
-      return;
+    List<User> users = datastore.getUser(request);
+    Gson gson = new Gson();
+    String json = gson.toJson(users);
+
+    response.getWriter().println(json);
     }
   }
 
@@ -43,4 +43,3 @@ public class SearchBarServlet extends HttpServlet {
     String query = request.getParameter("query");
     response.sendRedirect("/search-results.html?query=" + query);
   }
-}
