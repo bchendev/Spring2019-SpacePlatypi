@@ -54,7 +54,7 @@ public class AboutMeServlet extends HttpServlet {
     Whitelist whitelist = Whitelist.basicWithImages().addTags("a").addAttributes("a", "href");
     
     String about = request.getParameter("about-me");
-    if (about != null){
+    if (about != null) {
       about = Jsoup.clean(about, whitelist);
     }
     String userEmail = userService.getCurrentUser().getEmail();
