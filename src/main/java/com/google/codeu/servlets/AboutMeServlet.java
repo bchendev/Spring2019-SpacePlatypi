@@ -50,7 +50,7 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
-    //Allows only basic text editing, image uploading, and linking functions
+    // Allows only basic text editing, image uploading, and linking functions
     Whitelist whitelist = Whitelist.basicWithImages().addTags("a").addAttributes("a", "href");
     
     String about = request.getParameter("about-me");
@@ -58,7 +58,7 @@ public class AboutMeServlet extends HttpServlet {
       about = Jsoup.clean(about, whitelist);
     }
     String userEmail = userService.getCurrentUser().getEmail();
-    User user = new User(userEmail, about, /*location= */ null);
+    User user = new User(userEmail, about, /* location= */ null);
     datastore.storeUser(user);
 
     response.sendRedirect("/user-page.html?user=" + userEmail);
