@@ -18,10 +18,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('User');
 
-// URL must include ?user=XYZ parameter. If not, redirect to homepage.
-if (!parameterUsername) {
-  window.location.replace('/');
-}
 
 /** Sets the page title based on the URL parameter username. */
 function setPageTitle() {
