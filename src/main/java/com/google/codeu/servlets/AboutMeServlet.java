@@ -50,7 +50,7 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
-    // Allows only basic text editing, image uploading, and linking functions
+    //Allows only basic text editing, image uploading, and linking functions
     Whitelist whitelist = Whitelist.basicWithImages().addTags("a").addAttributes("a", "href");
 
     String aboutMe = Jsoup.clean(request.getParameter("about-me"), whitelist);
