@@ -22,7 +22,6 @@ limitations under the License.
     <link rel="stylesheet" href="/css/user-page.css">
     <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>   
     <script src="/js/user-page-loader.js"></script>
-    <script src="/js/map.js"></script>
     <style>
     #floating-panel {
         position: absolute;
@@ -155,7 +154,44 @@ limitations under the License.
             <h4>Map</h4>
             <div class="container" style="margin: 20px; width: 100%;">
        
-              <div id="map" onload="geocodeMap();"></div>
+            <div id="map" onload="geocodeMap();">
+              <script>
+              	function geocodeMap() {
+				  var map = new google.maps.Map(document.getElementById('map'), {
+				  zoom: 8,
+				  center: {lat: -34.397, lng: 150.644}
+				  });
+				  var geocoder = new google.maps.Geocoder();
+
+				  document.getElementById('submit-form').addEventListener('click', function() {
+				  geocodeAddress(geocoder, map);
+				  });
+				}
+
+				function geocodeAddress(geocoder, resultsMap) {
+				  var address = document.getElementById('Address').value;
+				  geocoder.geocode({'address': address}, function(results, status) {
+				    if (status === 'OK') {
+				      resultsMap.setCenter(results[0].geometry.location);
+				      var marker = new google.maps.Marker({
+				      map: resultsMap,
+				      position: results[0].geometry.location
+				      });
+
+				      var formattedAddress = results[0].formatted_address;
+				      var infoWindow = new google.maps.InfoWindow({
+				      content: formattedAddress
+				      });
+				      marker.addListener('click', () => {
+				        infoWindow.open(map, marker);
+				      });
+				    } else {
+				        alert('Geocode was not successful for the following reason: ' + status);
+				      }
+				  });
+				}
+              </script>
+            </div>
             
               <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVU50aOCT7FRl8BZppVuXuZ05Wa41O0M4&callback=geocodeMap"></script>
             </div> 
