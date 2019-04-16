@@ -42,6 +42,7 @@ function showMessageFormIfLoggedIn() {
           const messageForm = document.getElementById('message-form');
           messageForm.action = '/messages?recipient=' + parameterUsername;
           messageForm.classList.remove('hidden');
+          fetchImageUploadUrlAndShowForm();
         }
       });
       document.getElementById('about-me-form').classList.remove('hidden');
@@ -65,6 +66,22 @@ function fetchMessages() {
           const messageDiv = buildMessageDiv(message);
           messagesContainer.appendChild(messageDiv);
         });
+      });
+}
+
+/**
+ * Builds action after getting URL from servlet
+ * @return text
+ */
+function fetchImageUploadUrlAndShowForm() {
+  fetch('/image-upload-url')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const messageForm = document.getElementById('message-form');
+        messageForm.action = imageUploadUrl;
+        messageForm.classList.remove('hidden');
       });
 }
 
