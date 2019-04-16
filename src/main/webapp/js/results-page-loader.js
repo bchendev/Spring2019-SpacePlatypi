@@ -71,5 +71,5 @@ function buildUserDiv(user) {
 function buildUI() {
   setPageTitle();
   showMessageFormIfViewingSelf();
-  fetchMessages();
+  fetchUsers();
 }
