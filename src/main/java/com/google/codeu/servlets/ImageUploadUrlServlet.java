@@ -19,9 +19,9 @@ public class ImageUploadUrlServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Gets the file upload URL
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-    String uploadUrl = blobstoreService.createUploadUrl("/messages");
     UserService userService = UserServiceFactory.getUserService();
     String userEmail = userService.getCurrentUser().getEmail();
+    String uploadUrl = blobstoreService.createUploadUrl("/user-page.html?user=" + userEmail);
 
     response.setContentType("text/html");
     response.getOutputStream().println(uploadUrl);
