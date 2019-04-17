@@ -106,11 +106,10 @@ limitations under the License.
       <div class="container">
         <div class="row container">
           <div class="col px-0">
-            <h4 style="margin-bottom: 20px;"> Location </h4>
             <h4>Map</h4>
             <div class="container" style="margin: 20px; width: 100%;">
        
-            <div id="map" onload="geocodeMap();">
+            <div id="map" class="map" onload="geocodeMap();">
               <script>
               	function geocodeMap() {
                   var map = new google.maps.Map(document.getElementById("map"), {
@@ -152,9 +151,6 @@ limitations under the License.
             
               <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVU50aOCT7FRl8BZppVuXuZ05Wa41O0M4&callback=geocodeMap"></script>
             </div> 
-          </div>
-          <div class="col px-0">
-            <h4> Groups </h4>
           </div>
         </div>
       </div>
