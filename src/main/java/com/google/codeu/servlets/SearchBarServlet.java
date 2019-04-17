@@ -59,6 +59,6 @@ public class SearchBarServlet extends HttpServlet {
  
 
     String query = request.getParameter("query");
-    response.sendRedirect(request.toString());
+    response.sendRedirect("/user-page.html?user=" + query);
   }
 }

@@ -109,6 +109,10 @@ function fetchAboutMe(){
   });
 }
 
+function sendSearchQuery(){
+  console.log("Hello World");
+}
+
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   setPageTitle();
