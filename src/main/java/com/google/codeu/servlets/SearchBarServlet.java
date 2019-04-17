@@ -58,7 +58,7 @@ public class SearchBarServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
 
     String query = request.getParameter("query");
-    if(!query.contains("@codeustudents.com")){
+    if (!query.contains("@codeustudents.com")) {
       query += "@codeustudents.com";
     }
     response.sendRedirect("/user-page.html?user=" + query);
