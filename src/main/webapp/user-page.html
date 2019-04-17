@@ -61,7 +61,10 @@ limitations under the License.
         <img src="/images/propic.jpg" class="rounded-circle mx-auto d-block" style="width: 90%; height: 90%;" alt="Profile Pic">
        </div> 
        <div class="container">    
-    <form style="padding: 20px"> Upload Profile Picture <input type="file" name="image"></form>
+    <form action="/image-upload-profile" style="padding: 20px"> Upload Profile Picture 
+      <input type="file" name="image">
+      <input type="submit" value="Submit">
+    </form>
       </div>
     <div class="container" style="margin: 25px">
        <form action="/about" method="POST">
