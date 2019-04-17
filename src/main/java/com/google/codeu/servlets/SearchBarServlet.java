@@ -57,8 +57,8 @@ public class SearchBarServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     UserService userService = UserServiceFactory.getUserService();
  
-    }
+
     String query = request.getParameter("query");
-    response.sendRedirect("/search-results.html?query=" + query);
+    response.sendRedirect(request.toString());
   }
 }
