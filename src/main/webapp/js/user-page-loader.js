@@ -79,9 +79,9 @@ function fetchImageUploadUrlAndShowForm() {
         return response.text();
       })
       .then((imageUploadUrl) => {
-        const messageForm = document.getElementById('message-form');
-        messageForm.action = imageUploadUrl;
-        messageForm.classList.remove('hidden');
+        const user = document.getElementById('profilePicture');
+        user.src = imageUploadUrl;
+        user.classList.remove('hidden');
       });
 }
 

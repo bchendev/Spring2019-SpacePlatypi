@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.appengine.api.blobstore.BlobKey;
+import java.util.List;
+import java.util.Map;
 
 
 /** Provides access to a URL that allows a user to upload an image to Blobstore. */
@@ -18,14 +21,17 @@ public class ImageUploadUrlServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Gets the file upload URL
-    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-    UserService userService = UserServiceFactory.getUserService();
-    String userEmail = userService.getCurrentUser().getEmail();
-    String uploadUrl = blobstoreService.createUploadUrl("/user-page.html?user=" + userEmail);
+    // BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+    // UserService userService = UserServiceFactory.getUserService();
+    // String userEmail = userService.getCurrentUser().getEmail();
+    // String uploadUrl = blobstoreService.createUploadUrl("/user-page.html?user=" + userEmail);
 
-    response.setContentType("text/html");
-    response.getOutputStream().println(uploadUrl);
-    response.sendRedirect("/user-page.html?user=" + userEmail);
+	BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+    Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
+    List<BlobKey> blobKeys = blobs.get("image");
+    // response.setContentType("text/html");
+    // response.getOutputStream().println(uploadUrl);
+    // response.sendRedirect("/user-page.html?user=" + userEmail);
 
   }
 }
