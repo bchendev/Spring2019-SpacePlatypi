@@ -56,9 +56,11 @@ public class SearchBarServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     UserService userService = UserServiceFactory.getUserService();
- 
 
     String query = request.getParameter("query");
+    if(!query.contains("@codeustudents.com")){
+      query += "@codeustudents.com";
+    }
     response.sendRedirect("/user-page.html?user=" + query);
   }
 }
