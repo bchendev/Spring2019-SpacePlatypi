@@ -49,6 +49,10 @@ public class Datastore {
     messageEntity.setProperty("recipient", message.getRecipient());
     messageEntity.setProperty("sentimentScore", message.getSentimentScore());
 
+    if (message.getImageUrl() != null) {
+      messageEntity.setProperty("imageUrl", message.getImageUrl());
+    }
+
     datastore.put(messageEntity);
   }
 
@@ -154,5 +158,40 @@ public class Datastore {
     User user = new User(email, aboutMe, location);
 
     return user;
+  }
+
+  /**
+   * Gets all users.
+   *
+   * @return a list of all users, or empty list if no users has ever posted a message. List is
+   *     sorted by time descending.
+   */
+  public List<User> getUsers(String recipient) {
+    List<User> users = new ArrayList<>();
+
+    Query query =
+        new Query("User")
+            .setFilter(new Query.FilterPredicate("recipient", FilterOperator.EQUAL, recipient))
+            .addSort("timestamp", SortDirection.DESCENDING);
+    PreparedQuery results = datastore.prepare(query);
+
+    for (Entity entity : results.asIterable()) {
+      try {
+        String idString = entity.getKey().getName();
+        UUID id = UUID.fromString(idString);
+        String user = (String) entity.getProperty("user");
+        String aboutMe = (String) entity.getProperty("aboutMe");
+        String location = (String) entity.getProperty("location");
+
+        User addedUser = new User(user, aboutMe, location);
+        users.add(addedUser);
+      } catch (Exception e) {
+        System.err.println("Error reading message.");
+        System.err.println(entity.toString());
+        e.printStackTrace();
+      }
+    }
+
+    return users;
   }
 }

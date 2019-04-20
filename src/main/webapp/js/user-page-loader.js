@@ -18,7 +18,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
 
-
 /** Sets the page title based on the URL parameter username. */
 function setPageTitle() {
   document.getElementById('page-title').innerText = parameterUsername;
@@ -61,6 +60,22 @@ function fetchMessages() {
           const messageDiv = buildMessageDiv(message);
           messagesContainer.appendChild(messageDiv);
         });
+      });
+}
+
+/**
+ * Builds action after getting URL from servlet
+ * @return text
+ */
+function fetchImageUploadUrlAndShowForm() {
+  fetch('/image-upload-url')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const user = document.getElementById('profilePicture');
+        user.src = imageUploadUrl;
+        user.classList.remove('hidden');
       });
 }
 

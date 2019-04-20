@@ -48,7 +48,7 @@ limitations under the License.
       <nav class="nav d-flex justify-content-between" style="padding: 15px 15px 0px 15px;" id="navigation">
         <li><a href="/"><img src="/images/logo.jpg" width="125" height="50" alt=""></a></li>
         <form action="/search" method="POST" class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <input name="query" id="query" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </nav>
@@ -61,10 +61,14 @@ limitations under the License.
         <img src="/images/propic.jpg" class="rounded-circle mx-auto d-block" style="width: 90%; height: 90%;" alt="Profile Pic">
       </div> 
        <div class="container">    
-    <form style="padding: 20px"> Upload Profile Picture <input type="file" name="image"></form>
+    <form action="/image-upload-profile" style="padding: 20px"> Upload Profile Picture 
+      <input type="file" name="image">
+      <input type="submit" value="Submit">
+    </form>
       </div>
     <div class="container" style="margin: 25px">
-        <form action="/about" method="POST">
+
+      <form action="/about" method="POST">
         <div class="form-group">
           <label for="inputHandle">Handle</label>
           <input type="text" class="form-control" id="inputHandle" placeholder="Handle">
@@ -95,9 +99,9 @@ limitations under the License.
           <div id="about-me-container" style="margin-bottom: 20px">Loading...</div>
           <div id="about-me-form" class="hidden" style="margin: 0px 20px 20px 0px">
             <form action="/about" method="POST">
-            <textarea name="about-me" id="about-me-input" placeholder="about me" rows=4 required></textarea>
+            <textarea name="about-me" id="about-me-input" placeholder="about me" rows=4></textarea>
             <br/>
-            <input type="submit" value="Submit"> 
+            <button type="submit" class="btn btn-primary" id="submit-form">Submit</button>
               <script>
                 ClassicEditor
                   .create(document.querySelector( '#about-me-input' ),{
@@ -145,12 +149,7 @@ limitations under the License.
           </form>
         <div id="message-container">Loading...</div>
       </div>
-      <div class="container">
-        <div class="row container">
-          <div class="col px-0">
-            <h4 style="margin-bottom: 20px;"> Location </h4>
-            <h4>Map</h4>
-            <div class="container" style="margin: 20px; width: 100%;">
+
               <div id="map"></div>
             
               <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVU50aOCT7FRl8BZppVuXuZ05Wa41O0M4&callback=geocodeMap"></script>
