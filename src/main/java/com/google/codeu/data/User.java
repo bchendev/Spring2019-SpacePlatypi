@@ -31,12 +31,12 @@ public class User {
     this.aboutMe = aboutMe;
   }
 
-  public String getLocation() {
-    return location;
-  }
-
   public void setLocation(String location) {
     this.location = location;
+  }
+
+  public String getLocation() {
+    return location;
   }
 
   public String getImageUrl() {
@@ -47,3 +47,4 @@ public class User {
     this.imageUrl = imageUrl;
   }
 }
+
