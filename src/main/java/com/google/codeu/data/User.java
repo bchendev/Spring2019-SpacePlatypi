@@ -39,7 +39,7 @@ public class User {
     this.location = location;
   }
 
-  public String getimageUrl() {
+  public String getImageUrl() {
     return imageUrl;
   }
 }
