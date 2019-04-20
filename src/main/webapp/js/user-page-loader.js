@@ -227,4 +227,3 @@ function buildUI() {
   showMessageFormIfLoggedIn();
   fetchMessages();
 }
-
