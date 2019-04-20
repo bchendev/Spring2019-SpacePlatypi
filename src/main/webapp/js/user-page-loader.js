@@ -18,10 +18,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
 
-// URL must include ?user=XYZ parameter. If not, redirect to homepage.
-if (!parameterUsername) {
-  window.location.replace('/');
-}
 
 /** Sets the page title based on the URL parameter username. */
 function setPageTitle() {
@@ -42,9 +38,9 @@ function showMessageFormIfLoggedIn() {
           const messageForm = document.getElementById('message-form');
           messageForm.action = '/messages?recipient=' + parameterUsername;
           messageForm.classList.remove('hidden');
+          document.getElementById('about-me-form').classList.remove('hidden');
         }
       });
-      document.getElementById('about-me-form').classList.remove('hidden');
 }
 
 /** Fetches messages and add them to the page. */
@@ -95,17 +91,70 @@ function buildMessageDiv(message) {
 
 /** Fetches user data then adds it to the page */
 function fetchAboutMe(){
-  const url = '/about?user=' + parameterUsername;
-  fetch(url).then((response) => {
-    return response.text();
-  }).then((aboutMe) => {
-    const aboutMeContainer = document.getElementById('about-me-container');
-    if(aboutMe == ''){
-      aboutMe = 'This user has not entered any information yet.';
-    }
-    
-    aboutMeContainer.innerHTML = aboutMe;
+  const url = "/about?user=" + parameterUsername;
+  fetch(url)
+    .then(response => {
+      return response.json();
+    })
+    .then(jsonObject => {
+      // About Me
+      const aboutMeContainer = document.getElementById("about-me-container");
+      const aboutMeInput = document.getElementById("about-me-input");
+      if (jsonObject.aboutMe == null || jsonObject.aboutMe == "") {
+        jsonObject.aboutMe = "This user has not entered any information yet.";
+      }
 
+      aboutMeContainer.innerHTML = jsonObject.aboutMe;
+      aboutMeInput.innerHTML = jsonObject.aboutMe;
+      buildClassicEditor();
+
+      // Location
+      const address = document.getElementById("Address");
+      if (jsonObject.location) {
+        address.value = jsonObject.location;
+        geocodeMap(jsonObject.location);
+      }
+  });
+}
+
+function submitInfo() {
+  const address = document.getElementById("Address");
+  if (address.value) {
+    const url = "/about?location=" + address.value;
+    fetch(url, {
+      method: "POST"
+    });
+  }
+}
+
+function geocodeMap(address) {
+  var map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 8,
+    center: { lat: -34.397, lng: 150.644 }
+  });
+  
+  var geocoder = new google.maps.Geocoder();
+  geocodeAddress(geocoder, map, address);
+}
+
+function geocodeAddress(geocoder, resultsMap, addr) {
+  geocoder.geocode({ address: addr }, function(results, status) {
+    if (status === "OK") {
+      resultsMap.setCenter(results[0].geometry.location);
+      resultsMap.setZoom(15);
+      var marker = new google.maps.Marker({
+        map: resultsMap,
+        position: results[0].geometry.location
+      });
+
+      var formattedAddress = results[0].formatted_address;
+      var infoWindow = new google.maps.InfoWindow({
+        content: formattedAddress
+      });
+      marker.addListener("click", () => {
+        infoWindow.open(map, marker);
+      });
+    }
   });
 }
 

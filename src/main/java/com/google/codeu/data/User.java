@@ -18,11 +18,31 @@ public class User {
     return email;
   }
 
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
   public String getAboutMe() {
     return aboutMe;
   }
 
+  public void setAboutMe(String aboutMe) {
+    this.aboutMe = aboutMe;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
+
   public String getLocation() {
     return location;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
   }
 }

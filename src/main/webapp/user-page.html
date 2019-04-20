@@ -59,7 +59,7 @@ limitations under the License.
       <div class="col-2 px-0">
       <div class="container" style="margin: 20px; width: 100%;">
         <img src="/images/propic.jpg" class="rounded-circle mx-auto d-block" style="width: 90%; height: 90%;" alt="Profile Pic">
-       </div> 
+      </div> 
        <div class="container">    
     <form style="padding: 20px"> Upload Profile Picture <input type="file" name="image"></form>
       </div>
@@ -81,7 +81,7 @@ limitations under the License.
           <label for="inputAddress">Location</label>
           <input type="text" class="form-control" id="Address" placeholder="Address">
          </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" id="submit-form" onclick="submitInfo()">Submit</button>
       </form>
     </div>
       </div>
@@ -93,7 +93,7 @@ limitations under the License.
         <div class="container">
           <h4>About Me</h4>
           <div id="about-me-container" style="margin-bottom: 20px">Loading...</div>
-    <div id="about-me-form" class="hidden" style="margin: 0px 20px 20px 0px">
+          <div id="about-me-form" class="hidden" style="margin: 0px 20px 20px 0px">
             <form action="/about" method="POST">
             <textarea name="about-me" id="about-me-input" placeholder="about me" rows=4 required></textarea>
             <br/>
@@ -143,64 +143,22 @@ limitations under the License.
                 .catch( error => { console.log( error ); });
             </script> 
           </form>
-        
         <div id="message-container">Loading...</div>
-
       </div>
       <div class="container">
         <div class="row container">
           <div class="col px-0">
-      <h4 style="margin-bottom: 20px;"> Location </h4>
+            <h4 style="margin-bottom: 20px;"> Location </h4>
             <h4>Map</h4>
             <div class="container" style="margin: 20px; width: 100%;">
-            <!-- <div id="floating-panel">
-                <input id="address" type="textbox" value="">
-                <input id="submit" type="button" value="Add Location">
-              </div> -->
               <div id="map"></div>
             
-              <script>
-                function geocodeMap() {
-                  var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 8,
-                    center: {lat: -34.397, lng: 150.644}
-                  });
-                  var geocoder = new google.maps.Geocoder();
-
-                  document.getElementById('Address').addEventListener('click', function() {
-                    geocodeAddress(geocoder, map);
-                  });
-                }
-
-                function geocodeAddress(geocoder, resultsMap) {
-                  var address = document.getElementById('address').value;
-                  geocoder.geocode({'address': address}, function(results, status) {
-                    if (status === 'OK') {
-                      resultsMap.setCenter(results[0].geometry.location);
-                      var marker = new google.maps.Marker({
-                        map: resultsMap,
-                        position: results[0].geometry.location
-                      });
-
-                      var formattedAddress = results[0].formatted_address;
-                      var infoWindow = new google.maps.InfoWindow({
-                        content: formattedAddress
-                      });
-                      marker.addListener('click', () => {
-                        infoWindow.open(map, marker);
-                      });
-                    } else {
-                      alert('Geocode was not successful for the following reason: ' + status);
-                    }
-                  });
-                }
-              </script>
               <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVU50aOCT7FRl8BZppVuXuZ05Wa41O0M4&callback=geocodeMap"></script>
             </div> 
           </div>
           <div class="col px-0">
             <h4> Groups </h4>
-    </div>
+          </div>
         </div>
       </div>
     </div>
