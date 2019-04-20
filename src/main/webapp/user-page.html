@@ -58,10 +58,11 @@ limitations under the License.
       <div class="row">    
       <div class="col-2 px-0">
       <div class="container" style="margin: 20px; width: 100%;">
-        <img src="/images/propic.jpg" class="rounded-circle mx-auto d-block" style="width: 90%; height: 90%;" alt="Profile Pic">
+        <img id="profile-pic" src="/images/propic.jpg" class="rounded-circle mx-auto d-block" style="width: 90%; height: 90%;" alt="Profile Pic">
       </div> 
        <div class="container">    
-    <form action="/image-upload-profile" style="padding: 20px"> Upload Profile Picture 
+    <form id="upload-profile-pic" class="hidden" method="POST" enctype="multipart/form-data" style="padding: 20px">
+      Upload Profile Picture
       <input type="file" name="image">
       <input type="submit" value="Submit">
     </form>
@@ -99,7 +100,8 @@ limitations under the License.
           <div id="about-me-container" style="margin-bottom: 20px">Loading...</div>
           <div id="about-me-form" class="hidden" style="margin: 0px 20px 20px 0px">
             <form action="/about" method="POST">
-            <textarea name="about-me" id="about-me-input" placeholder="about me" rows=4></textarea>
+            <textarea name="about-me" id="about-me-input" placeholder="about me" rows=4 class="hidden">
+            </textarea>
             <br/>
             <button type="submit" class="btn btn-primary" id="submit-form">Submit</button>
             </form>
