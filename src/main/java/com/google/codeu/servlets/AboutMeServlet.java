@@ -45,6 +45,8 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
+    JsonObject returnObject = new JsonObject();
+
     // Store about me in json.
     String aboutMe = userData.getAboutMe();
     if (aboutMe != null && !aboutMe.isEmpty()) {
@@ -57,7 +59,11 @@ public class AboutMeServlet extends HttpServlet {
       returnObject.addProperty("location", location);
     }
 
-    System.out.println(location);
+    // Store the profile picture url in json.
+    String profilePicUrl = userData.getImageUrl();
+    if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
+      returnObject.addProperty("profilePic", profilePicUrl);
+    }
 
     response.setContentType("application/json");
     response.getWriter().println(returnObject.toString());
@@ -70,8 +76,6 @@ public class AboutMeServlet extends HttpServlet {
       response.sendRedirect("/index.html");
       return;
     }
-
-    System.out.println("CodeU");
 
     String userEmail = userService.getCurrentUser().getEmail();
     User user = datastore.getUser(userEmail);

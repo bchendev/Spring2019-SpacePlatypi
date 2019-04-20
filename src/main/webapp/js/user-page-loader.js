@@ -73,9 +73,9 @@ function fetchImageUploadUrlAndShowForm() {
         return response.text();
       })
       .then((imageUploadUrl) => {
-        const user = document.getElementById('profilePicture');
-        user.src = imageUploadUrl;
-        user.classList.remove('hidden');
+        const uploadProfPic = document.getElementById('upload-profile-pic');
+        uploadProfPic.action = imageUploadUrl;
+        uploadProfPic.classList.remove('hidden');
       });
 }
 
