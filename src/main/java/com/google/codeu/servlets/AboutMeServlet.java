@@ -39,6 +39,12 @@ public class AboutMeServlet extends HttpServlet {
 
     JsonObject returnObject = new JsonObject();
 
+    if (userData == null) {
+      response.setContentType("application/json");
+      response.getWriter().println(returnObject.toString());
+      return;
+    }
+
     // Store about me in json.
     String aboutMe = userData.getAboutMe();
     if (aboutMe != null && !aboutMe.isEmpty()) {
@@ -70,12 +76,18 @@ public class AboutMeServlet extends HttpServlet {
     String userEmail = userService.getCurrentUser().getEmail();
     User user = datastore.getUser(userEmail);
 
+    if (user == null) {
+      user = new User(userEmail, "", "");
+    }
+
     // Allows only basic text editing, image uploading, and linking functions
     Whitelist whitelist = Whitelist.basicWithImages().addTags("a").addAttributes("a", "href");
 
-    //About me section
+    // About me section
     String about = request.getParameter("about-me");
-    if (about != null) {
+    if (about == null || about.isEmpty()) {
+      about = user.getAboutMe();
+    } else {
       about = Jsoup.clean(about, whitelist);
     }
 
@@ -87,8 +99,6 @@ public class AboutMeServlet extends HttpServlet {
       location = Jsoup.clean(location, whitelist);
     }
 
-    System.out.println(location);
-
     // Update the existing user
     user.setAboutMe(about);
     user.setLocation(location);
@@ -96,7 +106,6 @@ public class AboutMeServlet extends HttpServlet {
     // Store the user
     datastore.storeUser(user);
     
-    System.out.println(userEmail);
     response.sendRedirect("/user-page.html?user=" + userEmail);
   }
 }
