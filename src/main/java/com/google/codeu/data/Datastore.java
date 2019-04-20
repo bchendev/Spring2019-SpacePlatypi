@@ -139,6 +139,7 @@ public class Datastore {
     userEntity.setProperty("email", user.getEmail());
     userEntity.setProperty("aboutMe", user.getAboutMe());
     userEntity.setProperty("location", user.getLocation());
+    userEntity.setProperty("profilePic", user.getImageUrl());
     datastore.put(userEntity);
   }
 
@@ -155,8 +156,9 @@ public class Datastore {
 
     String aboutMe = (String) userEntity.getProperty("aboutMe");
     String location = (String) userEntity.getProperty("location");
+    String profilePic = (String) userEntity.getProperty("profilePic");
     User user = new User(email, aboutMe, location);
-
+    user.setImageUrl(profilePic);
     return user;
   }
 
