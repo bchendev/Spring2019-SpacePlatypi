@@ -31,12 +31,10 @@ public class ProfileImageServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    System.out.println("--------------ProfileImageServlet-------------------");
     UserService userService = UserServiceFactory.getUserService();
     if (!userService.isUserLoggedIn()) {
       return;
     }
-    System.out.println("--------------User Logged In-------------------");
 
     String email = userService.getCurrentUser().getEmail();
     User user = datastore.getUser(email);
@@ -46,7 +44,6 @@ public class ProfileImageServlet extends HttpServlet {
     List<BlobKey> blobKeys = blobs.get("image");
 
     if (blobKeys != null && !blobKeys.isEmpty()) {
-      System.out.println("--------------Blob key found-------------------");
       BlobKey blobKey = blobKeys.get(0);
       ImagesService imagesService = ImagesServiceFactory.getImagesService();
       ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
