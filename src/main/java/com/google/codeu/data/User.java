@@ -46,6 +46,4 @@ public class User {
   public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
   }
-
 }
-
