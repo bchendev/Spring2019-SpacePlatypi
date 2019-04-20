@@ -121,7 +121,7 @@ function fetchAboutMe(){
 
       aboutMeContainer.innerHTML = jsonObject.aboutMe;
       aboutMeInput.innerHTML = jsonObject.aboutMe;
-      buildClassicEditor();
+      //buildClassicEditor();
 
       // Location
       const address = document.getElementById("Address");

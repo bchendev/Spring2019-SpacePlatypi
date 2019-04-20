@@ -4,6 +4,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.User;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +26,7 @@ public class AboutMeServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    System.out.println("Brian");
     response.setContentType("text/html");
     String user = request.getParameter("user");
 
@@ -34,10 +36,6 @@ public class AboutMeServlet extends HttpServlet {
     }
 
     User userData = datastore.getUser(user);
-
-    if (userData == null || userData.getAboutMe() == null) {
-      return;
-    }
 
     JsonObject returnObject = new JsonObject();
 
@@ -53,6 +51,8 @@ public class AboutMeServlet extends HttpServlet {
       returnObject.addProperty("location", location);
     }
 
+    System.out.println(location);
+
     response.setContentType("application/json");
     response.getWriter().println(returnObject.toString());
   }
@@ -64,6 +64,8 @@ public class AboutMeServlet extends HttpServlet {
       response.sendRedirect("/index.html");
       return;
     }
+
+    System.out.println("CodeU");
 
     String userEmail = userService.getCurrentUser().getEmail();
     User user = datastore.getUser(userEmail);
@@ -85,13 +87,16 @@ public class AboutMeServlet extends HttpServlet {
       location = Jsoup.clean(location, whitelist);
     }
 
+    System.out.println(location);
+
     // Update the existing user
     user.setAboutMe(about);
     user.setLocation(location);
 
     // Store the user
     datastore.storeUser(user);
-
+    
+    System.out.println(userEmail);
     response.sendRedirect("/user-page.html?user=" + userEmail);
   }
 }
