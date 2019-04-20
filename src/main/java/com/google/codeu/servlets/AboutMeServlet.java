@@ -4,6 +4,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.User;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,6 +54,12 @@ public class AboutMeServlet extends HttpServlet {
       returnObject.addProperty("location", location);
     }
 
+    // Store the profile picture url in json.
+    String profilePicUrl = userData.getImageUrl();
+    if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
+      returnObject.addProperty("profilePic", profilePicUrl);
+    }
+
     response.setContentType("application/json");
     response.getWriter().println(returnObject.toString());
   }
@@ -71,7 +78,7 @@ public class AboutMeServlet extends HttpServlet {
     // Allows only basic text editing, image uploading, and linking functions
     Whitelist whitelist = Whitelist.basicWithImages().addTags("a").addAttributes("a", "href");
 
-    //About me section
+    // About me section
     String about = request.getParameter("about-me");
     if (about != null) {
       about = Jsoup.clean(about, whitelist);
