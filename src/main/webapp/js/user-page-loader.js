@@ -34,10 +34,8 @@ function showMessageFormIfLoggedIn() {
       })
       .then((loginStatus) => {
         if (loginStatus.isLoggedIn) {
-          const messageForm = document.getElementById('message-form');
-          messageForm.action = '/messages?recipient=' + parameterUsername;
-          messageForm.classList.remove('hidden');
-          document.getElementById('about-me-form').classList.remove('hidden');
+         fetchImageUploadUrlAndShowForm();
+          document.getElementById("about-me-form").classList.remove("hidden");
         }
       });
 }
@@ -76,6 +74,7 @@ function fetchImageUploadUrlAndShowForm() {
         const uploadProfPic = document.getElementById('upload-profile-pic');
         uploadProfPic.action = imageUploadUrl;
         uploadProfPic.classList.remove('hidden');
+
       });
 }
 
@@ -129,6 +128,13 @@ function fetchAboutMe(){
         address.value = jsonObject.location;
         geocodeMap(jsonObject.location);
       }
+
+      // Profile picture
+      const profPic = document.getElementById("profile-pic");
+      if(jsonObject.profilePic) {
+        profPic.src = jsonObject.profilePic;
+      }
+
   });
 }
 
