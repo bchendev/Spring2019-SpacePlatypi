@@ -39,7 +39,22 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
-    response.getOutputStream().println(userData.getAboutMe());
+    JsonObject returnObject = new JsonObject();
+
+    // Store about me in json.
+    String aboutMe = userData.getAboutMe();
+    if (aboutMe != null && !aboutMe.isEmpty()) {
+      returnObject.addProperty("aboutMe", aboutMe);
+    }
+
+    // Store the location in json.
+    String location = userData.getLocation();
+    if (location != null && !location.isEmpty()) {
+      returnObject.addProperty("location", location);
+    }
+
+    response.setContentType("application/json");
+    response.getWriter().println(returnObject.toString());
   }
 
   @Override
@@ -50,15 +65,31 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
+    String userEmail = userService.getCurrentUser().getEmail();
+    User user = datastore.getUser(userEmail);
+
     // Allows only basic text editing, image uploading, and linking functions
     Whitelist whitelist = Whitelist.basicWithImages().addTags("a").addAttributes("a", "href");
 
+    //About me section
     String about = request.getParameter("about-me");
     if (about != null) {
       about = Jsoup.clean(about, whitelist);
     }
-    String userEmail = userService.getCurrentUser().getEmail();
-    User user = new User(userEmail, about, /* location= */ null);
+
+    // Location section
+    String location = request.getParameter("location");
+    if (location == null || location.isEmpty()) {
+      location = user.getLocation();
+    } else {
+      location = Jsoup.clean(location, whitelist);
+    }
+
+    // Update the existing user
+    user.setAboutMe(about);
+    user.setLocation(location);
+
+    // Store the user
     datastore.storeUser(user);
 
     response.sendRedirect("/user-page.html?user=" + userEmail);
