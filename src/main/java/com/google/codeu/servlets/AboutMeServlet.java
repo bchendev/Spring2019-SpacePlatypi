@@ -45,8 +45,6 @@ public class AboutMeServlet extends HttpServlet {
       return;
     }
 
-    JsonObject returnObject = new JsonObject();
-
     // Store about me in json.
     String aboutMe = userData.getAboutMe();
     if (aboutMe != null && !aboutMe.isEmpty()) {
