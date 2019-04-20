@@ -38,6 +38,10 @@ public class ProfileImageServlet extends HttpServlet {
 
     String email = userService.getCurrentUser().getEmail();
     User user = datastore.getUser(email);
+    
+    if (user == null) {
+      user = new User(email, "", "");
+    }
 
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
