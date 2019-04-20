@@ -39,79 +39,10 @@ function showMessageFormIfLoggedIn() {
     })
     .then(loginStatus => {
       if (loginStatus.isLoggedIn) {
-        const messageForm = document.getElementById("message-form");
         fetchImageUploadUrlAndShowForm();
+        document.getElementById("about-me-form").classList.remove("hidden");
       }
     });
-  document.getElementById("about-me-form").classList.remove("hidden");
-}
-
-/** Fetches messages and add them to the page. */
-function fetchMessages() {
-  const url = "/messages?user=" + parameterUsername;
-  fetch(url)
-    .then(response => {
-      return response.json();
-    })
-    .then(messages => {
-      const messagesContainer = document.getElementById("message-container");
-      if (messages.length == 0) {
-        //messagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
-      } else {
-        messagesContainer.innerHTML = "";
-      }
-      messages.forEach(message => {
-        const messageDiv = buildMessageDiv(message);
-        messagesContainer.appendChild(messageDiv);
-      });
-    });
-}
-
-/**
- * Builds action after getting URL from servlet
- * @return text
- */
-function fetchImageUploadUrlAndShowForm() {
-  fetch("/image-upload-url")
-    .then(response => {
-      return response.text();
-    })
-    .then(imageUploadUrl => {
-      const user = document.getElementById("profilePicture");
-      user.src = imageUploadUrl;
-      user.classList.remove("hidden");
-    });
-}
-
-/**
- * Builds an element that displays the message.
- * @param {Message} message
- * @return {Element}
- */
-function buildMessageDiv(message) {
-  const headerDiv = document.createElement("div");
-  headerDiv.classList.add("message-header");
-  headerDiv.appendChild(
-    document.createTextNode(
-      message.user +
-        " - " +
-        new Date(message.timestamp) +
-        " [" +
-        message.sentimentScore +
-        "]"
-    )
-  );
-
-  const bodyDiv = document.createElement("div");
-  bodyDiv.classList.add("message-body");
-  bodyDiv.innerHTML = message.text;
-
-  const messageDiv = document.createElement("div");
-  messageDiv.classList.add("message-div");
-  messageDiv.appendChild(headerDiv);
-  messageDiv.appendChild(bodyDiv);
-
-  return messageDiv;
 }
 
 /** Fetches user data then adds it to the page */
@@ -135,9 +66,15 @@ function fetchAboutMe() {
 
       // Location
       const address = document.getElementById("Address");
-      if (jsonObject.location != null) {
+      if (jsonObject.location) {
         address.value = jsonObject.location;
         geocodeMap(jsonObject.location);
+      }
+
+      // Profile picture
+      const profPic = document.getElementById("profile-pic");
+      if(jsonObject.profilePic) {
+        profPic.src = jsonObject.profilePic;
       }
     });
 }
@@ -186,13 +123,7 @@ function buildClassicEditor() {
         }
       ]
     }
-  })
-    .then(editor => {
-      console.log(editor);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  });
 }
 
 function submitInfo() {
@@ -236,10 +167,21 @@ function geocodeAddress(geocoder, resultsMap, addr) {
   });
 }
 
+function fetchImageUploadUrlAndShowForm() {
+  fetch('/image-upload-url')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const uploadProfPic = document.getElementById('upload-profile-pic');
+        uploadProfPic.action = imageUploadUrl;
+        uploadProfPic.classList.remove('hidden');
+      });
+}
+
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   setPageTitle();
   fetchAboutMe();
   showMessageFormIfLoggedIn();
-  fetchMessages();
 }

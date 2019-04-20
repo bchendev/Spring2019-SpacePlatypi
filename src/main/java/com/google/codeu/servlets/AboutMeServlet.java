@@ -42,11 +42,22 @@ public class AboutMeServlet extends HttpServlet {
 
     JsonObject returnObject = new JsonObject();
 
-    if(!userData.getAboutMe().isEmpty()) {
-      returnObject.addProperty("aboutMe", userData.getAboutMe());
+    // Store about me in json.
+    String aboutMe = userData.getAboutMe();
+    if (aboutMe != null && !aboutMe.isEmpty()) {
+      returnObject.addProperty("aboutMe", aboutMe);
     }
-    if(!userData.getLocation().isEmpty()) {
-      returnObject.addProperty("location", userData.getLocation());
+
+    // Store the location in json.
+    String location = userData.getLocation();
+    if (location != null && !location.isEmpty()) {
+      returnObject.addProperty("location", location);
+    }
+
+    // Store the profile picture url in json.
+    String profilePicUrl = userData.getImageUrl();
+    if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
+      returnObject.addProperty("profilePic", profilePicUrl);
     }
 
     response.setContentType("application/json");
@@ -83,10 +94,15 @@ public class AboutMeServlet extends HttpServlet {
     } else {
       location = Jsoup.clean(location, whitelist);
     }
-    
+
     System.out.println("Storing user: " + userEmail + ", " + about + ", " + location);
-    User updatedUser = new User(userEmail, about, location);
-    datastore.storeUser(updatedUser);
+
+    // Update the existing user
+    user.setAboutMe(about);
+    user.setLocation(location);
+
+    // Store the user
+    datastore.storeUser(user);
 
     response.sendRedirect("/user-page.html?user=" + userEmail);
   }
