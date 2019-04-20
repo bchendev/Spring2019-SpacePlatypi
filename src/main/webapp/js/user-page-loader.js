@@ -132,6 +132,53 @@ function fetchAboutMe(){
   });
 }
 
+/** Builds the classic editor for the about me seciton. */
+function buildClassicEditor() {
+  ClassicEditor.create(document.querySelector("#about-me-input"), {
+    removePlugins: ["BlockQuote "],
+    // Image upload feature to be incorporated with image project
+    toolbar: [
+      "heading",
+      "|",
+      "bold",
+      "italic",
+      "link",
+      "bulletedList",
+      "numberedList",
+      "imageUpload",
+      "undo",
+      "redo"
+    ],
+    heading: {
+      options: [
+        {
+          model: "paragraph",
+          title: "Paragraph",
+          class: "ck-heading_paragraph"
+        },
+        {
+          model: "heading1",
+          view: "h1",
+          title: "Title",
+          class: "ck-heading_heading1"
+        },
+        {
+          model: "heading2",
+          view: "h2",
+          title: "Heading",
+          class: "ck-heading_heading2"
+        },
+        {
+          model: "heading3",
+          view: "h3",
+          title: "Subheading",
+          class: "ck-heading_heading3"
+        }
+      ]
+    }
+  });
+}
+
 function submitInfo() {
   const address = document.getElementById("Address");
   if (address.value) {
@@ -167,7 +214,7 @@ function geocodeAddress(geocoder, resultsMap, addr) {
         content: formattedAddress
       });
       marker.addListener("click", () => {
-        infoWindow.open(map, marker);
+        infoWindow.open(resultsMap, marker);
       });
     }
   });
