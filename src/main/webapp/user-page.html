@@ -15,123 +15,161 @@ limitations under the License.
 <html>
   <head>
     <title>User Page</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/user-page.css">
-    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>   
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/user-page.css" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
     <script src="/js/user-page-loader.js"></script>
-    <style>
-    #floating-panel {
-        position: absolute;
-        top: 7px;
-        left: 15.2%;
-        z-index: 5;
-        background-color: #fff;
-        padding: 3px;
-        border: 1px solid #999;
-        text-align: center;
-        font-family: 'Roboto','sans-serif';
-        line-height: 15px;
-        width: 210px;
-    }
-    #map{
-      width: 300px;
-      height: 250px;
-    }
-  </style>
-    </head>
+  </head>
 
-    <body onload="buildUI();">
-
-      <nav class="nav d-flex justify-content-between" style="padding: 15px 15px 0px 15px;" id="navigation">
-        <li><a href="/"><img src="/images/logo.jpg" width="125" height="50" alt=""></a></li>
-        <form action="/search" method="POST" class="form-inline my-2 my-lg-0">
-          <input name="query" id="query" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </nav>
-
-     <hr>
-
-      <div class="row">    
-      <div class="col-2 px-0">
-      <div class="container" style="margin: 20px; width: 100%;">
-        <img id="profile-pic" src="/images/propic.jpg" class="rounded-circle mx-auto d-block" style="width: 90%; height: 90%;" alt="Profile Pic">
-      </div> 
-       <div class="container">    
-    <form id="upload-profile-pic" class="hidden" method="POST" enctype="multipart/form-data" style="padding: 20px">
-      Upload Profile Picture
-      <input type="file" name="image">
-      <input type="submit" value="Submit">
-    </form>
-      </div>
-    <div class="container" style="margin: 25px">
-
-      <form action="/about" method="POST">
-        <div class="form-group">
-          <label for="inputHandle">Handle</label>
-          <input type="text" class="form-control" id="inputHandle" placeholder="Handle">
-         </div>
-         <div class="form-group">
-          <label for="inputEmail">Email</label>
-          <input type="email" class="form-control" id="inputEmail" aria-describedby="emailhelp" placeholder="Email">
-        </div>
-        <div class="form-group">
-          <label for="inputPhone">Phone Number</label>
-          <input type="text" class="form-control" id="inputPhone" placeholder="Phone Number">
-         </div>
-         <div class="form-group">
-          <label for="inputAddress">Location</label>
-          <input type="text" class="form-control" id="Address" name="location" placeholder="Address">
-         </div>
-        <button type="submit" class="btn btn-primary" id="submit-form">Submit</button>
+  <body onload="buildUI()">
+    <nav
+      class="nav d-flex justify-content-between"
+      style="padding: 15px 15px 0px 15px;"
+      id="navigation"
+    >
+      <li>
+        <a href="/"
+          ><img src="/images/logo.jpg" width="125" height="50" alt=""
+        /></a>
+      </li>
+      <form action="/search" method="POST" class="form-inline my-2 my-lg-0">
+        <input
+          name="query"
+          id="query"
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          Search
+        </button>
       </form>
-    </div>
+    </nav>
+
+    <hr />
+
+    <div class="row">
+      <div class="col-2 px-0">
+        <div class="container" style="margin: 20px; width: 100%;">
+          <img
+            id="profile-pic"
+            class="rounded-circle mx-auto d-block"
+            style="width: 90%; height: 90%;"
+            alt="Profile Pic"
+          />
+        </div>
+        <div class="container">
+          <form
+            id="upload-profile-pic"
+            class="hidden"
+            method="POST"
+            enctype="multipart/form-data"
+            style="padding: 20px"
+          >
+            Upload Profile Picture
+            <input type="file" name="image" />
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+        <div class="container" style="margin: 25px">
+          <form action="/about" class="hidden" id="info-form" method="POST">
+            <div class="form-group">
+              <label for="inputAddress">Location</label>
+              <input
+                type="text"
+                class="form-control"
+                id="Address"
+                name="location"
+                placeholder="Address"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary" id="submit-form">
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
       <div class="col px-0">
         <h1 id="page-title" class="container">User Page</h1>
-
-  <hr class="container">
+        <hr class="container" />
 
         <div class="container">
           <h4>About Me</h4>
-          <div id="about-me-container" style="margin-bottom: 20px">Loading...</div>
-          <div id="about-me-form" class="hidden" style="margin: 0px 20px 20px 0px">
+          <div id="about-me-container" style="margin-bottom: 20px">
+            Loading...
+          </div>
+          <div
+            id="about-me-form"
+            class="hidden"
+            style="margin: 0px 20px 20px 0px"
+          >
             <form action="/about" method="POST">
-            <textarea name="about-me" id="about-me-input" placeholder="about me" rows=4 class="hidden">
-            </textarea>
-            <br/>
-            <button type="submit" class="btn btn-primary" id="submit-form">Submit</button>
+              <textarea
+                name="about-me"
+                id="about-me-input"
+                placeholder="about me"
+                rows="4"
+                class="hidden"
+              >
+              </textarea>
+              <br />
+              <button type="submit" class="btn btn-primary" id="submit-form">
+                Submit
+              </button>
             </form>
           </div>
         </div>
         <div class="container">
-          <h4>Message</h4>
-          <form id="message-form" action="/messages" method="POST" class="hidden" style="margin: 0px 20px 20px 0px">
-            <textarea name="text" id="message-input" placeholder="new message" rows=4 required></textarea>
-            <br/>
-            <input type="submit" value="Submit"> 
-          </form>
-        <div id="message-container">Loading...</div>
-        <div class="container">
-        <div class="row container">
-          <div class="col px-0">
-            <h4 style="margin-bottom: 20px;"> Location </h4>
-            <h4>Map</h4>
-            <div class="container" style="margin: 20px; width: 100%;">
-       
-            <div id="map"></div>
-            
-              <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVU50aOCT7FRl8BZppVuXuZ05Wa41O0M4&callback=geocodeMap"></script>
-            </div> 
-          </div>
-            <h4> Groups </h4>
+          <div class="container px-0">
+            <div class="row container px-0">
+              <div class="col">
+                <h4>Location</h4>
+                <div id="location-text-container" class="container px-0">
+                  No location set
+                </div>
+                <div class="container px-0">
+                  <div id="map">
+                    <script
+                      async
+                      defer
+                      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVU50aOCT7FRl8BZppVuXuZ05Wa41O0M4&callback=geocodeMap"
+                    ></script>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <h4>Public Posts</h4>
+                <form
+                  id="message-form"
+                  action="/messages"
+                  method="POST"
+                  class="hidden"
+                  style="margin: 0px 20px 20px 0px"
+                >
+                  <textarea
+                    name="text"
+                    id="message-input"
+                    placeholder="new message"
+                    rows="4"
+                    required
+                  ></textarea>
+                  <br />
+                  <input type="submit" value="Submit" />
+                </form>
+                <div id="message-container">Loading...</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  </body>  
+  </body>
 </html>

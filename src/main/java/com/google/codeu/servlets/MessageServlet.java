@@ -26,12 +26,6 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.cloud.language.v1.Document;
 import com.google.cloud.language.v1.Document.Type;
-import com.google.cloud.language.v1.LanguageServiceClient;
-import com.google.cloud.language.v1.Sentiment;
-import com.google.cloud.translate.Translate;
-import com.google.cloud.translate.Translate.TranslateOption;
-import com.google.cloud.translate.TranslateOptions;
-import com.google.cloud.translate.Translation;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Message;
 import com.google.gson.Gson;
@@ -90,63 +84,16 @@ public class MessageServlet extends HttpServlet {
       return;
     }
 
-    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-    Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
-    List<BlobKey> blobKeys = blobs.get("image");
-
     // Allows only basic text editing, image uploading, and linking functions
     Whitelist whitelist = Whitelist.basicWithImages().addTags("a").addAttributes("a", "href");
     String text = Jsoup.clean(request.getParameter("text"), whitelist);
 
     String user = userService.getCurrentUser().getEmail();
     String recipient = request.getParameter("recipient");
-    float sentimentScore = getSentimentScore(text);
 
-    // Replaces image expression text with the readable URL
-    String userText = Jsoup.clean(request.getParameter("text"), Whitelist.none());
-    String regex = "(https?://\\S+\\.(png|jpg))";
-    String replacement = "<img src=\"$1\" />";
-    // String textWithImagesReplaced = userText.replaceAll(regex, replacement);
-
-    Message message = new Message(user, text, recipient, sentimentScore);
-
-    if (blobKeys != null && !blobKeys.isEmpty()) {
-      BlobKey blobKey = blobKeys.get(0);
-      ImagesService imagesService = ImagesServiceFactory.getImagesService();
-      System.out.print("hello");
-      ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
-      String imageUrl = imagesService.getServingUrl(options);
-      message.setImageUrl(imageUrl);
-    }
-
+    Message message = new Message(user, text, recipient);
     datastore.storeMessage(message);
 
     response.sendRedirect("/user-page.html?user=" + recipient);
-  }
-
-  // Translates text into target language
-  private void translateMessages(List<Message> messages, String targetLanguageCode) {
-    Translate translate = TranslateOptions.getDefaultInstance().getService();
-
-    for (Message message : messages) {
-      String originalText = message.getText();
-
-      Translation translation =
-          translate.translate(originalText, TranslateOption.targetLanguage(targetLanguageCode));
-      String translatedText = translation.getTranslatedText();
-
-      message.setText(translatedText);
-    }
-  }
-
-  /** Analyzes a message and returns that message's sentiment score. */
-  private float getSentimentScore(String text) throws IOException {
-    Document doc = Document.newBuilder().setContent(text).setType(Type.PLAIN_TEXT).build();
-
-    LanguageServiceClient languageService = LanguageServiceClient.create();
-    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-    languageService.close();
-
-    return sentiment.getScore();
   }
 }
