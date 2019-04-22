@@ -142,7 +142,7 @@ function fetchAboutMe(){
       } else {
         profPic.src = "/images/propic.jpg";
       }
-      profilePic.classList.remove('hidden');
+      profPic.classList.remove('hidden');
   });
 }
 

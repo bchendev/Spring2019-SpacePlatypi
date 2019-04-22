@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
         datastore.storeUser(User.Builder.withEmail(email).build());
       }
 
-      response.sendRedirect("/user-page.html?user=" + user);
+      response.sendRedirect("/user-page.html?user=" + email);
       return;
     }
 
