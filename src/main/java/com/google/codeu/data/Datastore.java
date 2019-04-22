@@ -146,12 +146,11 @@ public class Datastore {
       return null;
     }
 
-    String aboutMe = (String) userEntity.getProperty("aboutMe");
-    String location = (String) userEntity.getProperty("location");
-    String profilePic = (String) userEntity.getProperty("profilePic");
-    User user = new User(email, aboutMe, location);
-    user.setImageUrl(profilePic);
-    return user;
+    return User.Builder.withEmail(email)
+        .setAboutMe((String) userEntity.getProperty("aboutMe"))
+        .setLocation((String) userEntity.getProperty("location"))
+        .setImageUrl((String) userEntity.getProperty("profilePic"))
+        .build();
   }
 
   /**
@@ -171,14 +170,12 @@ public class Datastore {
 
     for (Entity entity : results.asIterable()) {
       try {
-        String idString = entity.getKey().getName();
-        UUID id = UUID.fromString(idString);
-        String user = (String) entity.getProperty("user");
-        String aboutMe = (String) entity.getProperty("aboutMe");
-        String location = (String) entity.getProperty("location");
-
-        User addedUser = new User(user, aboutMe, location);
-        users.add(addedUser);
+        User user =
+            User.Builder.withEmail((String) entity.getProperty("user"))
+                .setAboutMe((String) entity.getProperty("aboutMe"))
+                .setLocation((String) entity.getProperty("location"))
+                .build();
+        users.add(user);
       } catch (Exception e) {
         System.err.println("Error reading message.");
         System.err.println(entity.toString());
