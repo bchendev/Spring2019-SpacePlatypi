@@ -38,9 +38,11 @@ public class ProfileImageServlet extends HttpServlet {
 
     String email = userService.getCurrentUser().getEmail();
     User user = datastore.getUser(email);
-    
+
     if (user == null) {
-      user = new User(email, "", "");
+      // If the user doesn't exist, then return.
+      response.sendRedirect("/error404");
+      return;
     }
 
     BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
@@ -52,8 +54,7 @@ public class ProfileImageServlet extends HttpServlet {
       ImagesService imagesService = ImagesServiceFactory.getImagesService();
       ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
       String imageUrl = imagesService.getServingUrl(options);
-      user.setImageUrl(imageUrl);
-      datastore.storeUser(user);
+      datastore.storeUser(User.Builder.fromUser(user).setImageUrl(imageUrl).build());
     }
     response.sendRedirect("/user-page.html?user=" + email);
   }

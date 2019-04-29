@@ -27,15 +27,20 @@ function setPageTitle() {
 /**
 * Shows the message form if the user is logged in.
 */
-function showMessageFormIfLoggedIn() {
+function showUserElementsIfLoggedIn() {
   fetch('/login-status')
       .then((response) => {
         return response.json();
       })
       .then((loginStatus) => {
-        if (loginStatus.isLoggedIn) {
-         fetchImageUploadUrlAndShowForm();
+        if (loginStatus.isLoggedIn && parameterUsername === loginStatus.username) {
+          fetchImageUploadUrlAndShowForm();
           document.getElementById("about-me-form").classList.remove("hidden");
+          document.getElementById("info-form").classList.remove("hidden");
+
+          const messageForm = document.getElementById("message-form");
+          messageForm.classList.remove("hidden");
+          messageForm.action="/messages?recipient=" + parameterUsername;
         }
       });
 }
@@ -88,8 +93,7 @@ function buildMessageDiv(message) {
   headerDiv.classList.add('message-header');
   headerDiv.appendChild(document.createTextNode(
       message.user + ' - ' +
-      new Date(message.timestamp) + 
-      ' [' + message.sentimentScore + ']'));
+      new Date(message.timestamp).toLocaleString()));
 
   const bodyDiv = document.createElement('div');
   bodyDiv.classList.add('message-body');
@@ -124,8 +128,10 @@ function fetchAboutMe(){
 
       // Location
       const address = document.getElementById("Address");
+      const locationText = document.getElementById("location-text-container");
       if (jsonObject.location) {
         address.value = jsonObject.location;
+        locationText.innerHTML = jsonObject.location;
         geocodeMap(jsonObject.location);
       }
 
@@ -133,8 +139,10 @@ function fetchAboutMe(){
       const profPic = document.getElementById("profile-pic");
       if(jsonObject.profilePic) {
         profPic.src = jsonObject.profilePic;
+      } else {
+        profPic.src = "/images/propic.jpg";
       }
-
+      profPic.classList.remove('hidden');
   });
 }
 
@@ -200,7 +208,7 @@ function geocodeMap(address) {
     zoom: 8,
     center: { lat: -34.397, lng: 150.644 }
   });
-  
+
   var geocoder = new google.maps.Geocoder();
   geocodeAddress(geocoder, map, address);
 }
@@ -230,6 +238,6 @@ function geocodeAddress(geocoder, resultsMap, addr) {
 function buildUI() {
   setPageTitle();
   fetchAboutMe();
-  showMessageFormIfLoggedIn();
+  showUserElementsIfLoggedIn();
   fetchMessages();
 }
