@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/css/user-page.css">
 
 <script>
-    
+
   // Fetch messages and add them to the page.
   function fetchMessages() {
     const url = "/feed";
@@ -35,7 +35,7 @@
 
     const timeDiv = document.createElement("div");
     timeDiv.classList.add("right-align");
-    timeDiv.appendChild(document.createTextNode(new Date(message.timestamp)));
+    timeDiv.appendChild(document.createTextNodeformat.parse (message.timestamp)));
 
     const headerDiv = document.createElement("div");
     headerDiv.classList.add("message-header");
@@ -55,11 +55,10 @@
       bodyDiv.innerHTML += '<br/>';
       bodyDiv.innerHTML += '<img src="' + message.imageUrl + '" />';
     }
-}
 
     return messageDiv;
   }
-  
+
   // Fetches messages and populate the UI of the page.
   function buildUI(){
     fetchMessages();

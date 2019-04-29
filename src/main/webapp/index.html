@@ -1,75 +1,86 @@
-<!--
-Copyright 2019 Google Inc.
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
-
-<!DOCTYPE html>
+<!-- Copyright 2019 Google Inc. Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. -->
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>CodeU 2019 Starter Project</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/main.css">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/main.css" />
     <script src="/js/navigation-loader.js"></script>
-    <style>
-      .shadowbox {
-        box-shadow: 2px 2px 5px #a3a8af;      
+    <style type="text/css">
+      :root #content > #right > .dose > .dosesingle,
+      :root #content > #center > .dose > .dosesingle {
+        display: none !important;
       }
     </style>
   </head>
-  <body onload="addLoginOrLogoutLinkToNavigation();">
+  <body onload="onLoad()">
     <nav class="nav" style="padding: 15px;" id="navigation">
       <li><a href="/feed.html">Feed</a></li>
       <li><a href="/stats.html">Stats</a></li>
       <li><a href="/Maps/geocode-map.html">Maps</a></li>
     </nav>
-  
-    <div class="container-fluid" style="padding-top: 100px; padding-bottom: 20px">
-	<div class="container"><div class="mx-auto d-block col-md-4 px-0">
-          <img src="/images/logo.jpg" class="rounded img-fluid" style="overflow: hidden" alt="Platypi Logo">
-	</div>
-    </div>
-    <div class="container text-center">
-      <form action="/search" method="POST" class="form-inline my-2 my-lg-0 d-flex justify-content-center" style="padding: 5px">
-	<input name="query" id="query" class="form-control mr-sm-2" type="search" placeholder="Searching profiles in @codeustudents" aria-label="Search" style="padding: 20px; width: 50%"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
-	<div class="container" style="width: 60%">
-	<div class="row" style="margin-top: 10px; padding: 10px">  
-	  <div class="col-4 px-0">
-       	    <div class="rounded container" style="width: 95%; background-color: #e0e2e5">
-	      <p class="text-center" style="padding:10px">brianch@codeustudents.com</p>
-	    </div>
-	  </div>
-	  <div class="col-4 px-0">
-       	    <div class="rounded container" style="width: 95%; background-color: #e0e2e5">
-	      <p class="text-center" style="padding:10px 10px 10px 0px">klin@codeustudents.com</p>
-	    </div>
-	  </div>
-	  <div class="col-2 px-0">
-       	    <div class="rounded container" style="width: 85%; background-color: #e0e2e5">
-	      <p class="text-center" style="padding:10px 10px 10px 0px">kcastaneda</p>
-	    </div>
-	  </div>
-     <div class="col-2 px-0">
-            <div class="rounded container" style="width: 85%; background-color: #e0e2e5">
-        <p class="text-center" style="padding:10px 10px 10px 0px">slingampalli</p>
+    <div
+      class="container-fluid"
+      style="padding-top: 100px; padding-bottom: 20px"
+    >
+      <div class="container">
+        <div class="mx-auto d-block col-md-4 px-0">
+          <img
+            src="/images/logo.jpg"
+            class="rounded img-fluid"
+            style="overflow: hidden"
+            alt="Platypi Logo"
+          />
+        </div>
       </div>
-    </div>
-	  <div class="col-2 px-0">
-       	    <div class="rounded container" style="width: 85%; background-color: #e0e2e5">
-	      <p class="text-center" style="padding:10px">jphillips</p>
-	    </div>
-	  </div>
-	</div>
+      <div class="container text-center">
+        <form
+          action="/search"
+          method="POST"
+          class="form-inline my-2 my-lg-0 d-flex justify-content-center"
+          style="padding: 5px"
+        >
+          <input
+            name="query"
+            id="query"
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Searching profiles in @codeustudents"
+            aria-label="Search"
+            style="padding: 20px; width: 50%"
+          /><button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
+      <div
+        class="container text-center"
+        style=" margin-top: 20px; margin-bottom: 20px; "
+      >
+        <button
+          type="button"
+          class="btn btn-outline-primary type-in-search"
+          style=" margin-right: 4px; margin-left: 4px; "
+        >
+          brianch@codeustudents.com
+        </button>
+        <button type="button" class="btn btn-outline-primary type-in-search">
+          klin
+        </button>
+        <button type="button" class="btn btn-outline-primary type-in-search">
+          kcastaneda
+        </button>
+        <button type="button" class="btn btn-outline-primary type-in-search">
+          jphillips
+        </button>
+        <button type="button" class="btn btn-outline-primary type-in-search">
+          slingampalli
+        </button>
       </div>
     </div>
   </body>
