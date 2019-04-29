@@ -23,5 +23,7 @@ nav ul {
 /* Keep navigation menu on one line. */
 nav li {
   display: inline-block;
-  margin-right: 10px
+  margin-right: 10px;
 }
+
+.type-in-search {}

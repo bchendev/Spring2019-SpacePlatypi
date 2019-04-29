@@ -78,35 +78,31 @@ public class AboutMeServlet extends HttpServlet {
     User user = datastore.getUser(userEmail);
 
     if (user == null) {
-      user = new User(userEmail, "", "");
+      // If the user doesn't exist, then return.
+      response.sendRedirect("/error404");
+      return;
     }
 
     // Allows only basic text editing, image uploading, and linking functions
     Whitelist whitelist = Whitelist.basicWithImages().addTags("a").addAttributes("a", "href");
 
+    User.Builder userBuilder = User.Builder.fromUser(user);
+
     // About me section
-    String about = request.getParameter("about-me");
-    if (about == null || about.isEmpty()) {
-      about = user.getAboutMe();
-    } else {
-      about = Jsoup.clean(about, whitelist);
+    String aboutMe = request.getParameter("about-me");
+    if (aboutMe != null && !aboutMe.isEmpty()) {
+      aboutMe = Jsoup.clean(aboutMe, whitelist);
+      userBuilder.setAboutMe(aboutMe);
     }
 
-    // Location section
+    // Location
     String location = request.getParameter("location");
-    if (location == null || location.isEmpty()) {
-      location = user.getLocation();
-    } else {
+    if (location != null && !location.isEmpty()) {
       location = Jsoup.clean(location, whitelist);
+      userBuilder.setLocation(location);
     }
 
-    // Update the existing user
-    user.setAboutMe(about);
-    user.setLocation(location);
-
-    // Store the user
-    datastore.storeUser(user);
-
+    datastore.storeUser(userBuilder.build());
     response.sendRedirect("/user-page.html?user=" + userEmail);
   }
 }
